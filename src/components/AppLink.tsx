@@ -3,7 +3,7 @@ import { Link, navigate } from 'gatsby';
 import MuiLink from '@material-ui/core/Link';
 import { NavigateOptions } from '@reach/router';
 import classNames from 'classnames';
-import { AppState } from '../types/AppState';
+import { AppState } from '../utils/AppState';
 import { useAppState } from '../utils/AppStateContext';
 
 interface Props {

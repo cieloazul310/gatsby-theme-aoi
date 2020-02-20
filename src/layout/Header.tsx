@@ -9,14 +9,17 @@ import Tooltip from '@material-ui/core/Tooltip';
 // icons
 import MenuIcon from '@material-ui/icons/Menu';
 import ShareButtons from './ShareButtons';
-import { drawerWidth } from './drawerWidth';
 
-const useStyles = makeStyles((theme: Theme) =>
+interface StylesProps {
+  drawerWidth: number;
+}
+
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
       },
       backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
       color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
@@ -33,10 +36,11 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   title: string;
   toggleDrawer: () => any;
+  drawerWidth?: number;
 }
 
-function Header({ title, toggleDrawer }: Props) {
-  const classes = useStyles();
+function Header({ title, toggleDrawer, drawerWidth = 280 }: Props) {
+  const classes = useStyles({ drawerWidth });
   return (
     <AppBar className={classes.root}>
       <Toolbar>

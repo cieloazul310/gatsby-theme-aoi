@@ -3,20 +3,23 @@ import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { ThemeProvider } from '@material-ui/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
-import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { DispatchContext } from '../utils/DispatchContext';
+import initialTheme from '../utils/theme';
+import { themeReducer, initialThemeState } from '../utils/themeReducer';
+import useLocalStorage from '../utils/useLocalStorage';
+import AppStateContext from '../utils/AppStateContext';
+import reducer from '../utils/reducer';
+import { initialAppState } from '../utils/AppState';
 
-import initialTheme from '../../src/utils/theme';
-import { DispatchContext } from '../../src/utils/DispatchContext';
-import { themeReducer, initialThemeState } from '../../src/utils/themeReducer';
-import useLocalStorage from '../../src/utils/useLocalStorage';
-import AppStateContext from '../../src/utils/AppStateContext';
-import reducer from '../../src/utils/reducer';
-import { initialAppState } from '../../src/types/AppState';
 
 export default function TopLayout(props) {
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [storedValue, setValue] = useLocalStorage('paletteType');
-  const [themeState, themeDispatch] = React.useReducer(themeReducer, initialThemeState(storedValue ? storedValue === 'dark' : prefersDarkMode));
+  const [themeState, themeDispatch] = React.useReducer(
+    themeReducer,
+    initialThemeState(storedValue ? storedValue === 'dark' : prefersDarkMode)
+  );
   const paletteType = themeState.darkMode ? 'dark' : 'light';
 
   // persist paletteType
@@ -29,10 +32,16 @@ export default function TopLayout(props) {
       ...initialTheme,
       palette: {
         primary: {
-          main: paletteType === 'dark' ? initialTheme.palette.primary[300] : initialTheme.palette.primary.main
+          main:
+            paletteType === 'dark'
+              ? initialTheme.palette.primary[300]
+              : initialTheme.palette.primary.main
         },
         secondary: {
-          main: paletteType === 'dark' ? initialTheme.palette.secondary[300] : initialTheme.palette.secondary.main
+          main:
+            paletteType === 'dark'
+              ? initialTheme.palette.secondary[300]
+              : initialTheme.palette.secondary.main
         },
         type: paletteType
       }
@@ -51,7 +60,9 @@ export default function TopLayout(props) {
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
         <DispatchContext.Provider value={themeDispatch}>
-          <AppStateContext.Provider value={{ state, dispatch }}>{props.children}</AppStateContext.Provider>
+          <AppStateContext.Provider value={{ state, dispatch }}>
+            {props.children}
+          </AppStateContext.Provider>
         </DispatchContext.Provider>
       </ThemeProvider>
     </>

@@ -14,34 +14,37 @@ import Tooltip from '@material-ui/core/Tooltip';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import Header from './Header';
-import MobileNavigation from './MobileNavigation';
 import DrawerInner from './DrawerInner';
-import { drawerWidth } from './drawerWidth';
 import Socials from './Socials';
 import { LayoutQuery } from '../../graphql-types';
 
-const useStyles = makeStyles((theme: Theme) =>
+interface StylesProps {
+  useBottomNav: boolean;
+  drawerWidth: number;
+}
+
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
     root: {
       display: 'flex',
     },
     drawer: {
       [theme.breakpoints.up('md')]: {
-        width: drawerWidth,
+        width: ({ drawerWidth }) => drawerWidth,
       },
     },
     drawerPaper: {
       transition: theme.transitions.create('background'),
-      width: drawerWidth,
+      width: ({ drawerWidth }) => drawerWidth,
     },
     main: {
       width: '100%',
       paddingTop: theme.mixins.toolbar.minHeight,
       [theme.breakpoints.down('xs')]: {
-        paddingBottom: 56,
+        paddingBottom: ({ useBottomNav }) => (useBottomNav ? 56 : null),
       },
       [theme.breakpoints.up('md')]: {
-        width: `calc(100% - ${drawerWidth}px)`,
+        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
       },
       ['@media (min-width:600px)']: {
         paddingTop: 64,
@@ -55,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
       right: theme.spacing(2),
       bottom: theme.spacing(2),
       [theme.breakpoints.down('xs')]: {
-        bottom: `calc(${theme.spacing(2)}px + 56px)`,
+        bottom: ({ useBottomNav }) => (useBottomNav ? `calc(${theme.spacing(2)}px + 56px)` : null),
       },
     },
   })
@@ -66,10 +69,21 @@ interface Props extends ContainerProps {
   description?: string;
   children: JSX.Element | JSX.Element[];
   disablePaddingTop?: boolean;
+  drawerWidth?: number;
   drawerContents?: JSX.Element[];
+  bottomNavigation?: JSX.Element[];
 }
 
-function Layout({ children, title, description, drawerContents, disablePaddingTop, ...options }: Props) {
+function Layout({
+  children,
+  title,
+  description,
+  drawerContents,
+  disablePaddingTop,
+  bottomNavigation,
+  drawerWidth = 280,
+  ...options
+}: Props) {
   const data = useStaticQuery<LayoutQuery>(graphql`
     query Layout {
       site {
@@ -82,7 +96,10 @@ function Layout({ children, title, description, drawerContents, disablePaddingTo
       }
     }
   `);
-  const classes = useStyles();
+  const classes = useStyles({
+    drawerWidth,
+    useBottomNav: bottomNavigation !== undefined,
+  });
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = () => {
     toggleDrawer(!drawerOpen);
@@ -112,7 +129,7 @@ function Layout({ children, title, description, drawerContents, disablePaddingTo
           },
         ]}
       ></Helmet>
-      <Header title={title || data.site.siteMetadata.title} toggleDrawer={_toggleDrawer} />
+      <Header title={title || data.site.siteMetadata.title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
       <nav className={classes.drawer}>
         <Hidden mdUp implementation="css">
           <SwipeableDrawer
@@ -157,9 +174,11 @@ function Layout({ children, title, description, drawerContents, disablePaddingTo
           </Tooltip>
         </Hidden>
       </div>
-      <Hidden smUp implementation="css">
-        <MobileNavigation />
-      </Hidden>
+      {bottomNavigation ? (
+        <Hidden smUp implementation="css">
+          {bottomNavigation}
+        </Hidden>
+      ) : null}
     </div>
   );
 }

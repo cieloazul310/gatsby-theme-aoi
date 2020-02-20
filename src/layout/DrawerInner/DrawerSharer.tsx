@@ -24,19 +24,19 @@ function DrawerSharer() {
         <ListItemIcon>
           <FabIcon icon={faTwitterSquare} />
         </ListItemIcon>
-        <ListItemText primary="Share on Twitter" />
+        <ListItemText primary="Twitterでシェア" />
       </ListItem>
       <ListItem button component="a" href={shareOnFacebook({ url: location.href })} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faFacebookSquare} />
         </ListItemIcon>
-        <ListItemText primary="Share on Facebook" />
+        <ListItemText primary="Facebookでシェア" />
       </ListItem>
       <ListItem button component="a" href={shareOnLine({ url: location.href })} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faLine} />
         </ListItemIcon>
-        <ListItemText primary="Share on LINE" />
+        <ListItemText primary="LINEで送る" />
       </ListItem>
     </List>
   );

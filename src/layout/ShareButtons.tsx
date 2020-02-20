@@ -32,7 +32,7 @@ function ShareButtons({ className, title, fontSize, color }: Props) {
   const { github } = data.site.siteMetadata.social;
   return (
     <div className={classNames(className)}>
-      <Tooltip title="Share on Twitter">
+      <Tooltip title="Twitterでシェア">
         <IconButton
           color={color || 'default'}
           href={shareOnTwitter({ url: location.href, title: title || document.title })}
@@ -42,7 +42,7 @@ function ShareButtons({ className, title, fontSize, color }: Props) {
           <FabIcon icon={faTwitter} fontSize={fontSize || 'default'} />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Share on Facebook">
+      <Tooltip title="Facebookでシェア">
         <IconButton color={color || 'default'} href={shareOnFacebook({ url: location.href })} target="_blank" rel="noopener noreferrer">
           <FabIcon icon={faFacebookF} fontSize={fontSize || 'default'} />
         </IconButton>
