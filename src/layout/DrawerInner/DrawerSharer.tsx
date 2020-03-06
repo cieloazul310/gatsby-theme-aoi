@@ -10,14 +10,18 @@ import { useLocation } from '@reach/router';
 import FabIcon from '../../components/FabIcon';
 import { shareOnTwitter, shareOnFacebook, shareOnLine } from '../../utils/sharer';
 
-function DrawerSharer() {
+interface Props {
+  title?: string;
+}
+
+function DrawerSharer({ title }: Props) {
   const location = useLocation();
   return (
     <List subheader={<ListSubheader>Share</ListSubheader>}>
       <ListItem
         component="a"
         button
-        href={shareOnTwitter({ url: location.href, title: typeof window !== 'undefined' ? document.title : null })}
+        href={shareOnTwitter({ url: location.href, title: typeof window !== 'undefined' ? title || document.title : null })}
         target="_blank"
         rel="noopener noreferrer"
       >

@@ -8,8 +8,10 @@ import List from '@material-ui/core/List';
 // icons
 import CloseIcon from '@material-ui/icons/Close';
 // Drawer Contents
+import Contents from './Contents';
 import DrawerSharer from './DrawerSharer';
 import ListItemToggleDarkMode from './ListItemToggleDarkMode';
+import DrawerFooter from './DrawerFooter';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,9 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
 interface Props {
   handleDrawer: () => any;
   contents?: JSX.Element | JSX.Element[];
+  title?: string;
 }
 
-function DrawerInner({ handleDrawer, contents }: Props) {
+function DrawerInner({ handleDrawer, contents, title }: Props) {
   const classes = useStyles();
   return (
     <div>
@@ -42,12 +45,15 @@ function DrawerInner({ handleDrawer, contents }: Props) {
       </div>
       <Divider />
       {contents}
+      <Divider />
+      <Contents />
       <List>
         <ListItemToggleDarkMode />
       </List>
       <Divider />
-      <DrawerSharer />
+      <DrawerSharer title={title} />
       <Divider />
+      <DrawerFooter />
     </div>
   );
 }

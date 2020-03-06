@@ -14,8 +14,8 @@ import { initialAppState } from '../utils/AppState';
 
 
 export default function TopLayout(props) {
-  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [storedValue, setValue] = useLocalStorage('paletteType');
+  const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
   const [themeState, themeDispatch] = React.useReducer(
     themeReducer,
     initialThemeState(storedValue ? storedValue === 'dark' : prefersDarkMode)

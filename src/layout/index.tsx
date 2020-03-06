@@ -46,9 +46,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
       },
-      ['@media (min-width:600px)']: {
-        paddingTop: 64,
-      },
+      [theme.breakpoints.up('sm')]: {
+        paddingTop: 64
+      }
     },
     footer: {
       textAlign: 'center',
@@ -67,10 +67,11 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
 interface Props extends ContainerProps {
   title?: string;
   description?: string;
+  keywords?: string[];
   children: JSX.Element | JSX.Element[];
   disablePaddingTop?: boolean;
   drawerWidth?: number;
-  drawerContents?: JSX.Element[];
+  drawerContents?: JSX.Element | JSX.Element[];
   bottomNavigation?: JSX.Element[];
 }
 
@@ -78,6 +79,7 @@ function Layout({
   children,
   title,
   description,
+  keywords,
   drawerContents,
   disablePaddingTop,
   bottomNavigation,
@@ -92,6 +94,7 @@ function Layout({
           lang
           description
           author
+          keywords
         }
       }
     }
@@ -104,29 +107,30 @@ function Layout({
   const _toggleDrawer = () => {
     toggleDrawer(!drawerOpen);
   };
-  const metaDescription = description || data.site.siteMetadata.description;
+  const { siteMetadata } = data.site;
+  const metaDescription = description || siteMetadata.description;
 
   return (
     <div className={classes.root}>
       <Helmet
-        htmlAttributes={{ lang: data.site.siteMetadata.lang || 'en' }}
+        htmlAttributes={{ lang: siteMetadata.lang || 'en' }}
         title={title}
-        titleTemplate={`%s | ${data.site.siteMetadata.title}`}
+        titleTemplate={`%s | ${siteMetadata.title}`}
         meta={[
           {
             name: 'description',
-            content: metaDescription,
+            content: metaDescription
           },
-          { name: 'keywords', content: 'sample, something' },
+          { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ')  },
           { name: 'twitter:card', content: 'summary' },
           {
             name: 'twitter:title',
-            content: title ? `${title} | ${data.site.siteMetadata.title}` : data.site.siteMetadata.title,
+            content: title ? `${title} | ${data.site.siteMetadata.title}` : data.site.siteMetadata.title
           },
           {
             name: 'twitter:description',
-            content: metaDescription,
-          },
+            content: metaDescription
+          }
         ]}
       ></Helmet>
       <Header title={title || data.site.siteMetadata.title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
@@ -139,12 +143,12 @@ function Layout({
             onClose={_toggleDrawer}
             open={drawerOpen}
           >
-            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} />
+            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
           </SwipeableDrawer>
         </Hidden>
         <Hidden smDown implementation="css">
           <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
-            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} />
+            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
           </Drawer>
         </Hidden>
       </nav>

@@ -6,15 +6,13 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { useLocation } from '@reach/router';
 import FabIcon from '../components/FabIcon';
 import { faTwitter, faFacebookF, faGithub } from '@fortawesome/free-brands-svg-icons';
-import { shareOnTwitter, shareOnFacebook } from '../utils/sharer';
+import { shareOnFacebook, useTwitterShareUrl } from '../utils/sharer';
 import { IconProps } from '@material-ui/core/Icon';
 
-interface Props {
+type Props = {
   className?: string;
-  fontSize?: IconProps['fontSize'];
-  color?: IconButtonProps['color'];
   title?: string;
-}
+} & Partial<Pick<IconProps, "fontSize">> & Partial<Pick<IconButtonProps, "color">>;
 
 function ShareButtons({ className, title, fontSize, color }: Props) {
   const location = useLocation();
@@ -22,6 +20,7 @@ function ShareButtons({ className, title, fontSize, color }: Props) {
     query ShareButton {
       site {
         siteMetadata {
+          title
           social {
             github
           }
@@ -29,13 +28,14 @@ function ShareButtons({ className, title, fontSize, color }: Props) {
       }
     }
   `);
+  const twitterShareUrl = useTwitterShareUrl(location.href, title);
   const { github } = data.site.siteMetadata.social;
   return (
     <div className={classNames(className)}>
       <Tooltip title="Twitterでシェア">
         <IconButton
           color={color || 'default'}
-          href={shareOnTwitter({ url: location.href, title: title || document.title })}
+          href={twitterShareUrl}
           target="_blank"
           rel="noopener noreferrer"
         >

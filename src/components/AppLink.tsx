@@ -15,7 +15,7 @@ interface Props {
 export function AppLink({ className, children, to }: Props) {
   const appState = useAppState();
   return (
-    <MuiLink component={Link} className={classNames(className)} to={to} state={{ appState }} color="secondary">
+    <MuiLink component={Link} className={classNames(className)} to={to} state={{ appState }} color="secondary" replace={true}>
       {children}
     </MuiLink>
   );
