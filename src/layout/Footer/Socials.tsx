@@ -16,8 +16,8 @@ import {
   faYoutube,
   faVimeo,
 } from '@fortawesome/free-brands-svg-icons';
-import FabIcon from '../components/FabIcon';
-import { SocialsQuery } from '../../graphql-types';
+import FabIcon from '../../components/FabIcon';
+import { SocialsQuery } from '../../../graphql-types';
 
 interface IconBoxProps {
   children: JSX.Element | JSX.Element[];
@@ -74,7 +74,7 @@ function Socials() {
   } = data.site.siteMetadata.social;
 
   return (
-    <Box pt={4}>
+    <Box pt={4} textAlign="center">
       <address>
         {mail !== '' ? (
           <IconBox href={`mailto:${mail}`} title="E-Mail">

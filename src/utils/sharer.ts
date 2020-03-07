@@ -25,7 +25,7 @@ interface UseTwitterShareQuery {
   site: {
     siteMetadata: {
       title: string;
-    }
+    };
   };
 }
 

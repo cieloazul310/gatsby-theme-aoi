@@ -4,18 +4,18 @@ import Helmet from 'react-helmet';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Container, { ContainerProps } from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import Fab from '@material-ui/core/Fab';
-import Link from '@material-ui/core/Link';
 import Tooltip from '@material-ui/core/Tooltip';
 import MenuIcon from '@material-ui/icons/Menu';
 
+// layout components are enable to override from your project
+// https://www.gatsbyjs.org/docs/themes/shadowing/
 import Header from './Header';
 import DrawerInner from './DrawerInner';
-import Socials from './Socials';
+import Footer from './Footer';
 import { LayoutQuery } from '../../graphql-types';
 
 interface StylesProps {
@@ -47,8 +47,8 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
         width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
       },
       [theme.breakpoints.up('sm')]: {
-        paddingTop: 64
-      }
+        paddingTop: 64,
+      },
     },
     footer: {
       textAlign: 'center',
@@ -119,18 +119,18 @@ function Layout({
         meta={[
           {
             name: 'description',
-            content: metaDescription
+            content: metaDescription,
           },
-          { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ')  },
+          { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ') },
           { name: 'twitter:card', content: 'summary' },
           {
             name: 'twitter:title',
-            content: title ? `${title} | ${data.site.siteMetadata.title}` : data.site.siteMetadata.title
+            content: title ? `${title} | ${data.site.siteMetadata.title}` : data.site.siteMetadata.title,
           },
           {
             name: 'twitter:description',
-            content: metaDescription
-          }
+            content: metaDescription,
+          },
         ]}
       ></Helmet>
       <Header title={title || data.site.siteMetadata.title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
@@ -156,18 +156,7 @@ function Layout({
         <Container {...options}>
           <Box pt={disablePaddingTop ? 0 : 4} pb={4}>
             <main>{children}</main>
-            <footer>
-              <div className={classes.footer}>
-                <Socials />
-                <Typography variant="body2" component="small">
-                  © {new Date().getFullYear()} {data.site.siteMetadata.author} All rights reserved. Built with
-                  {` `}
-                  <Link color="secondary" href="https://www.gatsbyjs.org">
-                    Gatsby
-                  </Link>
-                </Typography>
-              </div>
-            </footer>
+            <Footer />
           </Box>
         </Container>
         <Hidden mdUp implementation="css">

@@ -1,8 +1,6 @@
 import * as React from 'react';
 
 function DrawerFooter() {
-  return (
-    <div></div>
-  );
+  return <div></div>;
 }
 export default DrawerFooter;

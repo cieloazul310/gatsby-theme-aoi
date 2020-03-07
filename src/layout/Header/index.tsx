@@ -29,7 +29,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       flex: 1,
       paddingLeft: theme.spacing(1),
       paddingRight: theme.spacing(1),
-      lineHeight: 1.2
+      lineHeight: 1.2,
     },
   })
 );

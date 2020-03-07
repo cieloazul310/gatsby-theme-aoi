@@ -7,9 +7,8 @@ import Home from '@material-ui/icons/Home';
 import MusicNote from '@material-ui/icons/MusicNote';
 import Settings from '@material-ui/icons/Settings';
 import { useLocation } from '@reach/router';
-import { appNavigate } from '../components/AppLink';
-import locationToRelativePath from '../utils/locationToRelativePath';
-import { useAppState } from '../utils/AppStateContext';
+import { appNavigate } from '../../components/AppLink';
+import locationToRelativePath from '../../utils/locationToRelativePath';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,15 +24,15 @@ const useStyles = makeStyles((theme: Theme) =>
 function MobileNavigation() {
   const classes = useStyles();
   const location = useLocation();
-  const state = useAppState();
+  const _onChange = (event: React.ChangeEvent, value: string) => {
+    appNavigate(value, {});
+  }
   return (
     <BottomNavigation
       className={classes.root}
       value={locationToRelativePath(location)}
       showLabels
-      onChange={(e, value: string) => {
-        appNavigate(value, { state });
-      }}
+      onChange={_onChange}
     >
       <BottomNavigationAction label="Top" value="" icon={<Home />} />
       <BottomNavigationAction label="page2" value="page-2/" icon={<MusicNote />} />
