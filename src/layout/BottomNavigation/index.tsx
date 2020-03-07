@@ -26,14 +26,9 @@ function MobileNavigation() {
   const location = useLocation();
   const _onChange = (event: React.ChangeEvent, value: string) => {
     appNavigate(value, {});
-  }
+  };
   return (
-    <BottomNavigation
-      className={classes.root}
-      value={locationToRelativePath(location)}
-      showLabels
-      onChange={_onChange}
-    >
+    <BottomNavigation className={classes.root} value={locationToRelativePath(location)} showLabels onChange={_onChange}>
       <BottomNavigationAction label="Top" value="" icon={<Home />} />
       <BottomNavigationAction label="page2" value="page-2/" icon={<MusicNote />} />
       <BottomNavigationAction label="Settings" value="settings/" icon={<Settings />} />

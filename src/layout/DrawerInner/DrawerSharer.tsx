@@ -5,32 +5,33 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import { faTwitterSquare, faFacebookSquare, faLine } from '@fortawesome/free-brands-svg-icons';
-import { useLocation } from '@reach/router';
 
 import FabIcon from '../../components/FabIcon';
-import { useTwitterShareUrl, shareOnFacebook, shareOnLine } from '../../utils/sharer';
+import useSocialShare from '../../utils/useSocialShare';
 
 interface Props {
   title?: string;
 }
 
 function DrawerSharer({ title }: Props) {
-  const location = useLocation();
+  const twitterUrl = useSocialShare('twitter', title);
+  const fbUrl = useSocialShare('facebook');
+  const lineUrl = useSocialShare('line');
   return (
     <List subheader={<ListSubheader>Share</ListSubheader>}>
-      <ListItem component="a" button href={useTwitterShareUrl(location.href, title)} target="_blank" rel="noopener noreferrer">
+      <ListItem component="a" button href={twitterUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faTwitterSquare} />
         </ListItemIcon>
         <ListItemText primary="Twitterでシェア" />
       </ListItem>
-      <ListItem button component="a" href={shareOnFacebook({ url: location.href })} target="_blank" rel="noopener noreferrer">
+      <ListItem button component="a" href={fbUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faFacebookSquare} />
         </ListItemIcon>
         <ListItemText primary="Facebookでシェア" />
       </ListItem>
-      <ListItem button component="a" href={shareOnLine({ url: location.href })} target="_blank" rel="noopener noreferrer">
+      <ListItem button component="a" href={lineUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faLine} />
         </ListItemIcon>

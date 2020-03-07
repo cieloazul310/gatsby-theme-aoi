@@ -8,6 +8,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 // icons
 import MenuIcon from '@material-ui/icons/Menu';
+import { useSiteMetadata } from '../../graphql-hooks';
 import ShareButtons from './ShareButtons';
 
 interface StylesProps {
@@ -42,6 +43,7 @@ interface Props {
 
 function Header({ title, toggleDrawer, drawerWidth = 280 }: Props) {
   const classes = useStyles({ drawerWidth });
+  const siteMetadata = useSiteMetadata();
   return (
     <AppBar className={classes.root}>
       <Toolbar>
@@ -53,7 +55,7 @@ function Header({ title, toggleDrawer, drawerWidth = 280 }: Props) {
           </Tooltip>
         </Hidden>
         <Typography className={classes.title} variant="h6" component="h1" color="inherit">
-          {title}
+          {title || siteMetadata.title}
         </Typography>
         <Hidden smDown implementation="css">
           <ShareButtons color="inherit" title={title} />

@@ -32,7 +32,7 @@ export function AppLink(props: AppLinkProps) {
   const { pathname } = useLocation();
 
   const className = clsx(classNameProps, {
-    [activeClassName]: pathname === withPrefix(to) && activeClassName
+    [activeClassName]: pathname === withPrefix(to) && activeClassName,
   });
 
   if (naked) {

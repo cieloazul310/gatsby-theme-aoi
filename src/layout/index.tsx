@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { graphql, useStaticQuery } from 'gatsby';
-import Helmet from 'react-helmet';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Container, { ContainerProps } from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
@@ -13,10 +11,10 @@ import MenuIcon from '@material-ui/icons/Menu';
 
 // layout components are enable to override from your project
 // https://www.gatsbyjs.org/docs/themes/shadowing/
+import SEO from './SEO';
 import Header from './Header';
 import DrawerInner from './DrawerInner';
 import Footer from './Footer';
-import { LayoutQuery } from '../../graphql-types';
 
 interface StylesProps {
   useBottomNav: boolean;
@@ -49,9 +47,6 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       [theme.breakpoints.up('sm')]: {
         paddingTop: 64,
       },
-    },
-    footer: {
-      textAlign: 'center',
     },
     menuFab: {
       position: 'fixed',
@@ -86,19 +81,6 @@ function Layout({
   drawerWidth = 280,
   ...options
 }: Props) {
-  const data = useStaticQuery<LayoutQuery>(graphql`
-    query Layout {
-      site {
-        siteMetadata {
-          title
-          lang
-          description
-          author
-          keywords
-        }
-      }
-    }
-  `);
   const classes = useStyles({
     drawerWidth,
     useBottomNav: bottomNavigation !== undefined,
@@ -106,34 +88,12 @@ function Layout({
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = () => {
     toggleDrawer(!drawerOpen);
-  };
-  const { siteMetadata } = data.site;
-  const metaDescription = description || siteMetadata.description;
+  }
 
   return (
     <div className={classes.root}>
-      <Helmet
-        htmlAttributes={{ lang: siteMetadata.lang || 'en' }}
-        title={title}
-        titleTemplate={`%s | ${siteMetadata.title}`}
-        meta={[
-          {
-            name: 'description',
-            content: metaDescription,
-          },
-          { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ') },
-          { name: 'twitter:card', content: 'summary' },
-          {
-            name: 'twitter:title',
-            content: title ? `${title} | ${data.site.siteMetadata.title}` : data.site.siteMetadata.title,
-          },
-          {
-            name: 'twitter:description',
-            content: metaDescription,
-          },
-        ]}
-      ></Helmet>
-      <Header title={title || data.site.siteMetadata.title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
+      <SEO title={title} description={description} keywords={keywords} />
+      <Header title={title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
       <nav className={classes.drawer}>
         <Hidden mdUp implementation="css">
           <SwipeableDrawer

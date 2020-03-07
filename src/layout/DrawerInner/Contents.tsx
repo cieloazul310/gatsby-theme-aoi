@@ -13,14 +13,14 @@ import { useLocation } from '@reach/router';
 function Contents() {
   const { pathname } = useLocation();
   return (
-    <List subheader={<ListSubheader>Contents</ListSubheader>}>
-      <ListItemAppLink to="/" button selected={pathname === withPrefix('/')}>
+    <List subheader={<ListSubheader>Contents</ListSubheader>} role="menu">
+      <ListItemAppLink to="/" button selected={pathname === withPrefix('/')} role="menuitem">
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>
         <ListItemText primary="Top" />
       </ListItemAppLink>
-      <ListItemAppLink to="/page-2/" button selected={pathname === withPrefix('/page-2/')}>
+      <ListItemAppLink to="/page-2/" button selected={pathname === withPrefix('/page-2/')} role="menuitem">
         <ListItemIcon>
           <HomeIcon />
         </ListItemIcon>

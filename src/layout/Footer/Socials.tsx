@@ -17,7 +17,7 @@ import {
   faVimeo,
 } from '@fortawesome/free-brands-svg-icons';
 import FabIcon from '../../components/FabIcon';
-import { SocialsQuery } from '../../../graphql-types';
+import { useSiteMetadata } from '../../graphql-hooks';
 
 interface IconBoxProps {
   children: JSX.Element | JSX.Element[];
@@ -36,42 +36,7 @@ function IconBox({ children, href, title }: IconBoxProps) {
 }
 
 function Socials() {
-  const data = useStaticQuery<SocialsQuery>(graphql`
-    query Socials {
-      site {
-        siteMetadata {
-          social {
-            mail
-            github
-            twitter
-            facebook
-            gitlab
-            medium
-            linkedin
-            pocket
-            tumblr
-            instagram
-            vimeo
-            youtube
-          }
-        }
-      }
-    }
-  `);
-  const {
-    mail,
-    github,
-    twitter,
-    facebook,
-    gitlab,
-    medium,
-    linkedin,
-    pocket,
-    tumblr,
-    instagram,
-    youtube,
-    vimeo,
-  } = data.site.siteMetadata.social;
+  const { mail, github, twitter, facebook, gitlab, medium, linkedin, pocket, tumblr, instagram, youtube, vimeo } = useSiteMetadata().social;
 
   return (
     <Box pt={4} textAlign="center">
