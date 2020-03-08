@@ -49,7 +49,7 @@ function Header({ title, toggleDrawer, drawerWidth = 280 }: Props) {
       <Toolbar>
         <Hidden xsDown mdUp implementation="css">
           <Tooltip title="Menu">
-            <IconButton color="inherit" onClick={toggleDrawer}>
+            <IconButton color="inherit" onClick={toggleDrawer} edge="start">
               <MenuIcon />
             </IconButton>
           </Tooltip>

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { navigate, withPrefix } from 'gatsby';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
@@ -7,8 +8,6 @@ import Home from '@material-ui/icons/Home';
 import MusicNote from '@material-ui/icons/MusicNote';
 import Settings from '@material-ui/icons/Settings';
 import { useLocation } from '@reach/router';
-import { appNavigate } from '../../components/AppLink';
-import locationToRelativePath from '../../utils/locationToRelativePath';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,13 +24,13 @@ function MobileNavigation() {
   const classes = useStyles();
   const location = useLocation();
   const _onChange = (event: React.ChangeEvent, value: string) => {
-    appNavigate(value, {});
+    navigate(value);
   };
   return (
-    <BottomNavigation className={classes.root} value={locationToRelativePath(location)} showLabels onChange={_onChange}>
+    <BottomNavigation className={classes.root} value={withPrefix(location.href)} showLabels onChange={_onChange}>
       <BottomNavigationAction label="Top" value="" icon={<Home />} />
-      <BottomNavigationAction label="page2" value="page-2/" icon={<MusicNote />} />
-      <BottomNavigationAction label="Settings" value="settings/" icon={<Settings />} />
+      <BottomNavigationAction label="page2" value="/page-2/" icon={<MusicNote />} />
+      <BottomNavigationAction label="Settings" value="/settings/" icon={<Settings />} />
     </BottomNavigation>
   );
 }

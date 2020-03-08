@@ -1,42 +1,42 @@
 import * as React from 'react';
+import Box from '@material-ui/core/Box';
 import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import { IconProps } from '@material-ui/core/Icon';
-import { faTwitter, faFacebookF, faGithub } from '@fortawesome/free-brands-svg-icons';
-import FabIcon from '../../components/FabIcon';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import GithubIcon from '@material-ui/icons/Github';
 import { useSiteMetadata } from '../../graphql-hooks';
 import useSocialShare from '../../utils/useSocialShare';
 
 type Props = {
   className?: string;
   title?: string;
-} & Partial<Pick<IconProps, 'fontSize'>> &
-  Partial<Pick<IconButtonProps, 'color'>>;
+} & Partial<Pick<IconButtonProps, 'color'>>;
 
-function ShareButtons({ className, title, fontSize = 'default', color = 'default' }: Props) {
+function ShareButtons({ className, title, color = 'default' }: Props) {
   const { github } = useSiteMetadata().social;
   const twitterUrl = useSocialShare('twitter', title);
   const fbUrl = useSocialShare('facebook');
   return (
-    <div className={className}>
+    <Box className={className}>
       <Tooltip title="Twitterでシェア">
         <IconButton color={color} href={twitterUrl} target="_blank" rel="noopener noreferrer">
-          <FabIcon icon={faTwitter} fontSize={fontSize} />
+          <TwitterIcon />
         </IconButton>
       </Tooltip>
       <Tooltip title="Facebookでシェア">
         <IconButton color={color} href={fbUrl} target="_blank" rel="noopener noreferrer">
-          <FabIcon icon={faFacebookF} fontSize={fontSize} />
+          <FacebookIcon />
         </IconButton>
       </Tooltip>
       {github ? (
         <Tooltip title="GitHub">
           <IconButton color={color} href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer">
-            <FabIcon icon={faGithub} fontSize={fontSize} />
+            <GithubIcon />
           </IconButton>
         </Tooltip>
       ) : null}
-    </div>
+    </Box>
   );
 }
 

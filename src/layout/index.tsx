@@ -13,6 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 // https://www.gatsbyjs.org/docs/themes/shadowing/
 import SEO from './SEO';
 import Header from './Header';
+import Tabs from './Tabs';
 import DrawerInner from './DrawerInner';
 import Footer from './Footer';
 
@@ -23,9 +24,6 @@ interface StylesProps {
 
 const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
-    root: {
-      display: 'flex',
-    },
     drawer: {
       [theme.breakpoints.up('md')]: {
         width: ({ drawerWidth }) => drawerWidth,
@@ -59,15 +57,17 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   })
 );
 
-interface Props extends ContainerProps {
+export interface LayoutProps extends ContainerProps {
   title?: string;
   description?: string;
   keywords?: string[];
-  children: JSX.Element | JSX.Element[];
+  children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   disablePaddingTop?: boolean;
   drawerWidth?: number;
-  drawerContents?: JSX.Element | JSX.Element[];
-  bottomNavigation?: JSX.Element[];
+  drawerContents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  tabs?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  bottomNavigation?: JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  tabSticky?: boolean;
 }
 
 function Layout({
@@ -75,12 +75,14 @@ function Layout({
   title,
   description,
   keywords,
+  tabs,
   drawerContents,
   disablePaddingTop,
   bottomNavigation,
+  tabSticky = false,
   drawerWidth = 280,
   ...options
-}: Props) {
+}: LayoutProps) {
   const classes = useStyles({
     drawerWidth,
     useBottomNav: bottomNavigation !== undefined,
@@ -88,10 +90,10 @@ function Layout({
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = () => {
     toggleDrawer(!drawerOpen);
-  }
+  };
 
   return (
-    <div className={classes.root}>
+    <Box display="flex">
       <SEO title={title} description={description} keywords={keywords} />
       <Header title={title} toggleDrawer={_toggleDrawer} drawerWidth={drawerWidth} />
       <nav className={classes.drawer}>
@@ -112,9 +114,10 @@ function Layout({
           </Drawer>
         </Hidden>
       </nav>
-      <div className={classes.main}>
+      <Box className={classes.main}>
         <Container {...options}>
           <Box pt={disablePaddingTop ? 0 : 4} pb={4}>
+            {tabs ? <Tabs tabSticky={tabSticky}>{tabs}</Tabs> : null}
             <main>{children}</main>
             <Footer />
           </Box>
@@ -126,13 +129,13 @@ function Layout({
             </Fab>
           </Tooltip>
         </Hidden>
-      </div>
+      </Box>
       {bottomNavigation ? (
         <Hidden smUp implementation="css">
           {bottomNavigation}
         </Hidden>
       ) : null}
-    </div>
+    </Box>
   );
 }
 

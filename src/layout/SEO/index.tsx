@@ -18,18 +18,18 @@ function SEO({ title, description, keywords }: Props) {
       meta={[
         {
           name: 'description',
-          content: description
+          content: description,
         },
         { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ') },
         { name: 'twitter:card', content: 'summary' },
         {
           name: 'twitter:title',
-          content: title ? `${title} | ${siteMetadata.title}` : siteMetadata.title
+          content: title ? `${title} | ${siteMetadata.title}` : siteMetadata.title,
         },
         {
           name: 'twitter:description',
-          content: description
-        }
+          content: description,
+        },
       ]}
     />
   );

@@ -1,6 +1,6 @@
-# gatsby-starter-typescript-material-ui
+# gatsby-theme-aoi
 
-> A starter kit for TypeScript-based Gatsby projects Material-UI.
+> A theme for TypeScript-based Gatsby projects Material-UI.
 
 DEMO: https://cieloazul310.github.io/gatsby-starter-typescript-material-ui/
 
@@ -8,8 +8,7 @@ DEMO: https://cieloazul310.github.io/gatsby-starter-typescript-material-ui/
 
 - TypeScript
 - Material-UI
-- Storybook
-- Responsive UI
+- Responsive UI Layout
 - Hold App State
 - Dark Mode
 

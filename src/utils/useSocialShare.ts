@@ -15,6 +15,6 @@ export default function useSocialShare(type: ShareType, title?: string) {
         : type === 'line'
         ? `https://social-plugins.line.me/lineit/share?url=${encodeURIComponent(url)}`
         : `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
-    [url, shareTitle]
+    [url, shareTitle, type]
   );
 }

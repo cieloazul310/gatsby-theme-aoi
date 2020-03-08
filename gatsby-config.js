@@ -22,7 +22,6 @@ module.exports = options => {
       }
     },
     plugins: [
-      `gatsby-plugin-graphql-codegen`,
       `gatsby-plugin-material-ui`,
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-typescript`

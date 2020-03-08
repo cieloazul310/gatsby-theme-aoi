@@ -4,7 +4,9 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import { faTwitterSquare, faFacebookSquare, faLine } from '@fortawesome/free-brands-svg-icons';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import { faLine } from '@fortawesome/free-brands-svg-icons';
 
 import FabIcon from '../../components/FabIcon';
 import useSocialShare from '../../utils/useSocialShare';
@@ -21,13 +23,13 @@ function DrawerSharer({ title }: Props) {
     <List subheader={<ListSubheader>Share</ListSubheader>}>
       <ListItem component="a" button href={twitterUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
-          <FabIcon icon={faTwitterSquare} />
+          <TwitterIcon />
         </ListItemIcon>
         <ListItemText primary="Twitterでシェア" />
       </ListItem>
       <ListItem button component="a" href={fbUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
-          <FabIcon icon={faFacebookSquare} />
+          <FacebookIcon />
         </ListItemIcon>
         <ListItemText primary="Facebookでシェア" />
       </ListItem>

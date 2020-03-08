@@ -12,7 +12,6 @@ import AppStateContext from '../utils/AppStateContext';
 import reducer from '../utils/reducer';
 import { initialAppState } from '../utils/AppState';
 
-
 export default function TopLayout(props) {
   const [storedValue, setValue] = useLocalStorage('paletteType');
   const prefersDarkMode = useMediaQuery('(prefers-color-scheme: dark)');
