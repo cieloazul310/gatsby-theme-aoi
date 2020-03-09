@@ -7,7 +7,7 @@ import Switch from '@material-ui/core/Switch';
 import useTheme from '@material-ui/core/styles/useTheme';
 import Bright4Icon from '@material-ui/icons/Brightness4';
 import Bright5Icon from '@material-ui/icons/Brightness5';
-import { useToggleDark } from '../../utils/DispatchContext';
+import { useToggleDark } from '../utils/DispatchContext';
 
 function ListItemToggleDarkMode() {
   const paletteType = useTheme().palette.type;
@@ -16,7 +16,7 @@ function ListItemToggleDarkMode() {
   return (
     <ListItem>
       <ListItemIcon>{isDark ? <Bright4Icon /> : <Bright5Icon />}</ListItemIcon>
-      <ListItemText primary="ダークモード" />
+      <ListItemText primary="Dark Mode" />
       <ListItemSecondaryAction>
         <Switch edge="end" onChange={_toggleDark} checked={isDark} inputProps={{ 'aria-labelledby': 'switch-list-label-darkmode' }} />
       </ListItemSecondaryAction>

@@ -1,6 +1,6 @@
 import { AppState } from './AppState';
 
-export type Action = { type: 'INCREMENT' } | { type: 'DECREMENT' } | { type: 'RESET_COUNT' } | { type: 'SET_TAB'; index: AppState['tab'] };
+export type Action = { type: 'INCREMENT' } | { type: 'DECREMENT' } | { type: 'RESET_COUNT' };
 
 export default function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
@@ -18,11 +18,6 @@ export default function reducer(state: AppState, action: Action): AppState {
       return {
         ...state,
         count: 0,
-      };
-    case 'SET_TAB':
-      return {
-        ...state,
-        tab: action.index,
       };
     default:
       throw new Error();

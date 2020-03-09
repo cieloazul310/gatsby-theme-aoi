@@ -19,19 +19,19 @@ function ShareButtons({ className, title, color = 'default' }: Props) {
   const fbUrl = useSocialShare('facebook');
   return (
     <Box className={className}>
-      <Tooltip title="Twitterでシェア">
-        <IconButton color={color} href={twitterUrl} target="_blank" rel="noopener noreferrer">
+      <Tooltip title="Share On Twitter">
+        <IconButton color={color} href={twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">
           <TwitterIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Facebookでシェア">
-        <IconButton color={color} href={fbUrl} target="_blank" rel="noopener noreferrer">
+      <Tooltip title="Share on Facebook">
+        <IconButton color={color} href={fbUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
           <FacebookIcon />
         </IconButton>
       </Tooltip>
       {github ? (
         <Tooltip title="GitHub">
-          <IconButton color={color} href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer">
+          <IconButton color={color} href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <GithubIcon />
           </IconButton>
         </Tooltip>

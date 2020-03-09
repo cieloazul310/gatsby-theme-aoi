@@ -2,14 +2,11 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
+import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-// icons
-import MenuIcon from '@material-ui/icons/Menu';
 import { useSiteMetadata } from '../../graphql-hooks';
-import ShareButtons from './ShareButtons';
+import ButtonLeft from './ButtonLeft';
+import ButtonRight from './ButtonRight';
 
 interface StylesProps {
   drawerWidth: number;
@@ -19,47 +16,45 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
+      backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
+      color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
+      transition: theme.transitions.create(['background', 'width']),
       [theme.breakpoints.up('md')]: {
         width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
       },
-      backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
-      color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
-      transition: theme.transitions.create('background'),
     },
     title: {
-      flex: 1,
-      paddingLeft: theme.spacing(1),
-      paddingRight: theme.spacing(1),
       lineHeight: 1.2,
+      display: 'flex',
+      justifyContent: 'start',
+      [theme.breakpoints.down('sm')]: {
+        justifyContent: 'center',
+      },
     },
   })
 );
 
 interface Props {
   title: string;
-  toggleDrawer: () => any;
+  toggleDrawer?: () => any;
+  onLeftButtonClick?: () => void;
+  onRightButtonClick?: () => void;
   drawerWidth?: number;
 }
 
-function Header({ title, toggleDrawer, drawerWidth = 280 }: Props) {
+function Header({ title, onLeftButtonClick, onRightButtonClick, drawerWidth = 280 }: Props) {
   const classes = useStyles({ drawerWidth });
   const siteMetadata = useSiteMetadata();
   return (
     <AppBar className={classes.root}>
       <Toolbar>
-        <Hidden xsDown mdUp implementation="css">
-          <Tooltip title="Menu">
-            <IconButton color="inherit" onClick={toggleDrawer} edge="start">
-              <MenuIcon />
-            </IconButton>
-          </Tooltip>
-        </Hidden>
-        <Typography className={classes.title} variant="h6" component="h1" color="inherit">
-          {title || siteMetadata.title}
-        </Typography>
-        <Hidden smDown implementation="css">
-          <ShareButtons color="inherit" title={title} />
-        </Hidden>
+        <ButtonLeft onButtonClick={onLeftButtonClick} />
+        <Box flex="1" px={1}>
+          <Typography className={classes.title} variant="h6" component="h1" color="inherit">
+            {title || siteMetadata.title}
+          </Typography>
+        </Box>
+        <ButtonRight title={title} onButtonClick={onRightButtonClick} />
       </Toolbar>
     </AppBar>
   );

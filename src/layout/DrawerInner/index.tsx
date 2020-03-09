@@ -5,13 +5,12 @@ import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
-import List from '@material-ui/core/List';
 // icons
 import CloseIcon from '@material-ui/icons/Close';
 // Drawer Contents
 import Contents from './Contents';
 import DrawerSharer from './DrawerSharer';
-import ListItemToggleDarkMode from './ListItemToggleDarkMode';
+import StateHandler from './StateHandler';
 import DrawerFooter from './DrawerFooter';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,8 +21,8 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       paddingLeft: theme.spacing(3),
       [theme.breakpoints.down('xs')]: {
-        paddingLeft: theme.spacing(2)
-      }
+        paddingLeft: theme.spacing(2),
+      },
     },
   })
 );
@@ -51,9 +50,8 @@ function DrawerInner({ handleDrawer, contents, title }: Props) {
       {contents}
       <Divider />
       <Contents />
-      <List>
-        <ListItemToggleDarkMode />
-      </List>
+      <Divider />
+      <StateHandler />
       <Divider />
       <DrawerSharer title={title} />
       <Divider />

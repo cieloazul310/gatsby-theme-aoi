@@ -19,7 +19,9 @@ function TabPane({ index, value, children, maxWidth = 'md', ...props }: Props) {
       aria-labelledby={`full-width-tab-${index}`}
       {...props}
     >
-      <Box py={2} minHeight="80vh">{value === index ? children : null}</Box>
+      <Box py={2} minHeight="80vh">
+        {value === index ? children : null}
+      </Box>
     </Container>
   );
 }

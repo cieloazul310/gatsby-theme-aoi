@@ -12,7 +12,7 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
       position: tabSticky ? 'sticky' : null,
       top: tabSticky ? 56 : null,
       backgroundColor: tabSticky ? theme.palette.background.default : null,
-      zIndex: tabSticky ? theme.zIndex.drawer : null,
+      zIndex: tabSticky ? theme.zIndex.mobileStepper : null,
       boxShadow: tabSticky ? theme.shadows[1] : null,
       [theme.breakpoints.up('sm')]: {
         top: tabSticky ? 64 : null,

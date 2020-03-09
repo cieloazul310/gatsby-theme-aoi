@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { Link as GatsbyLink, GatsbyLinkProps, navigate, withPrefix } from 'gatsby';
+import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
-import { useLocation, NavigateOptions } from '@reach/router';
+import { useLocation } from '@reach/router';
 import clsx from 'clsx';
 
 type GatsbyLinkComposedProps<T = {}> = Omit<GatsbyLinkProps<T>, 'ref'>;
@@ -44,7 +44,3 @@ export function AppLink(props: AppLinkProps) {
   );
 }
 export default AppLink;
-
-export function appNavigate<T>(to: string, options: NavigateOptions<T> = {}) {
-  navigate(to, options);
-}

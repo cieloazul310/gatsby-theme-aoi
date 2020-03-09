@@ -18,7 +18,7 @@ function SEO({ title, description, keywords }: Props) {
       meta={[
         {
           name: 'description',
-          content: description,
+          content: description || siteMetadata.description,
         },
         { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ') },
         { name: 'twitter:card', content: 'summary' },
@@ -28,7 +28,7 @@ function SEO({ title, description, keywords }: Props) {
         },
         {
           name: 'twitter:description',
-          content: description,
+          content: description || siteMetadata.description,
         },
       ]}
     />
