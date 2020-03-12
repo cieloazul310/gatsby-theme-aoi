@@ -14,12 +14,10 @@ function BottomNav() {
     navigate(value.replace(withPrefix(''), ''));
   };
   return (
-    <Box position="fixed" bottom={0} left={0} width="100%">
-      <BottomNavigation component="nav" value={pathname} onChange={_onChange}>
-        <BottomNavigationAction label="Top" value={withPrefix('/')} icon={<Home />} />
-        <BottomNavigationAction label="page2" value={withPrefix('/page-2/')} icon={<MusicNote />} />
-      </BottomNavigation>
-    </Box>
+    <BottomNavigation component="nav" value={pathname} onChange={_onChange} showLabels>
+      <BottomNavigationAction label="Top" value={withPrefix('/')} icon={<Home />} />
+      <BottomNavigationAction label="page2" value={withPrefix('/page-2/')} icon={<MusicNote />} />
+    </BottomNavigation>
   );
 }
 

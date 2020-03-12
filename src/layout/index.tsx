@@ -38,26 +38,26 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
     drawer: {
       transition: theme.transitions.create('width'),
       [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => drawerWidth,
-      },
+        width: ({ drawerWidth }) => drawerWidth
+      }
     },
     drawerPaper: {
       transition: theme.transitions.create(['background', 'width']),
-      width: ({ drawerWidth }) => drawerWidth,
+      width: ({ drawerWidth }) => drawerWidth
     },
     main: {
       flex: 1,
       paddingTop: theme.mixins.toolbar.minHeight,
       transition: theme.transitions.create('width'),
       [theme.breakpoints.down('xs')]: {
-        paddingBottom: ({ disableBottomNav }) => (!disableBottomNav ? 56 : null),
+        paddingBottom: ({ disableBottomNav }) => (!disableBottomNav ? 56 : null)
       },
       [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
+        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`
       },
       [theme.breakpoints.up('sm')]: {
-        paddingTop: 64,
-      },
+        paddingTop: 64
+      }
     },
     menuFab: {
       position: 'fixed',
@@ -65,9 +65,9 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       bottom: theme.spacing(2),
       transition: theme.transitions.create(['bottom', 'right']),
       [theme.breakpoints.down('xs')]: {
-        bottom: ({ disableBottomNav }) => (!disableBottomNav ? `calc(${theme.spacing(2)}px + 56px)` : null),
-      },
-    },
+        bottom: ({ disableBottomNav }) => (!disableBottomNav ? `calc(${theme.spacing(2)}px + 56px)` : null)
+      }
+    }
   })
 );
 
@@ -107,7 +107,7 @@ function Layout({
 }: LayoutProps) {
   const classes = useStyles({
     disableBottomNav,
-    drawerWidth: disableDrawer ? 0 : drawerWidth,
+    drawerWidth: disableDrawer ? 0 : drawerWidth
   });
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = React.useCallback(() => {
@@ -125,7 +125,7 @@ function Layout({
             onClose={_toggleDrawer}
             open={drawerOpen}
             ModalProps={{
-              keepMounted: true,
+              keepMounted: true
             }}
           >
             <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
@@ -162,7 +162,9 @@ function Layout({
       </Box>
       {!disableBottomNav ? (
         <Hidden smUp implementation="css">
-          {bottomNavigation || <BottomNav />}
+          <Box position="fixed" left={0} bottom={0} width="100%">
+            {bottomNavigation || <BottomNav />}
+          </Box>
         </Hidden>
       ) : null}
     </Box>

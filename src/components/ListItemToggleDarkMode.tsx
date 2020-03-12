@@ -8,7 +8,7 @@ import Bright4Icon from '@material-ui/icons/Brightness4';
 import Bright5Icon from '@material-ui/icons/Brightness5';
 import { useTheme } from '@material-ui/core/styles';
 import useUpdateOnClient from '../utils/useUpdateOnClient';
-import { useThemeContextState, useToggleDark, useToggleUseSystem } from 'gatsby-theme-aoi-top-layout/src/utils/ThemeDispatchContext';
+import { useThemeContextState, useToggleDark, useToggleUseSystem } from 'gatsby-theme-aoi-top-layout/src/utils/ThemeStateContext';
 
 interface Props {
   label?: string;
