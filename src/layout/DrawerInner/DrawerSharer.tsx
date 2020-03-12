@@ -10,17 +10,19 @@ import { faLine } from '@fortawesome/free-brands-svg-icons';
 
 import FabIcon from '../../components/FabIcon';
 import useSocialShare from '../../utils/useSocialShare';
+import useUpdateOnClint from '../../utils/useUpdateOnClient';
 
 interface Props {
   title?: string;
 }
 
 function DrawerSharer({ title }: Props) {
+  const isClient = useUpdateOnClint();
   const twitterUrl = useSocialShare('twitter', title);
   const fbUrl = useSocialShare('facebook');
   const lineUrl = useSocialShare('line');
   return (
-    <List subheader={<ListSubheader>Share</ListSubheader>}>
+    <List key={isClient} subheader={<ListSubheader>Share</ListSubheader>}>
       <ListItem component="a" button href={twitterUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <TwitterIcon />

@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = options => {
   return {
     siteMetadata: {
@@ -22,6 +24,13 @@ module.exports = options => {
       }
     },
     plugins: [
+      {
+        resolve: `gatsby-theme-aoi-top-layout`,
+        options: {
+          //theme: muiTheme
+          utilPath: path.resolve('./src/util')
+        }
+      },
       `gatsby-plugin-material-ui`,
       `gatsby-plugin-react-helmet`,
       `gatsby-plugin-typescript`

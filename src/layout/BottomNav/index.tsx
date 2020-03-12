@@ -11,11 +11,11 @@ import { useLocation } from '@reach/router';
 function BottomNav() {
   const { pathname } = useLocation();
   const _onChange = (event: React.ChangeEvent, value: string) => {
-    navigate(value);
+    navigate(value.replace(withPrefix(''), ''));
   };
   return (
     <Box position="fixed" bottom={0} left={0} width="100%">
-      <BottomNavigation value={pathname} showLabels onChange={_onChange}>
+      <BottomNavigation component="nav" value={pathname} onChange={_onChange}>
         <BottomNavigationAction label="Top" value={withPrefix('/')} icon={<Home />} />
         <BottomNavigationAction label="page2" value={withPrefix('/page-2/')} icon={<MusicNote />} />
       </BottomNavigation>

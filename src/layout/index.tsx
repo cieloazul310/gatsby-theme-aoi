@@ -124,6 +124,9 @@ function Layout({
             onOpen={_toggleDrawer}
             onClose={_toggleDrawer}
             open={drawerOpen}
+            ModalProps={{
+              keepMounted: true,
+            }}
           >
             <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
           </SwipeableDrawer>
