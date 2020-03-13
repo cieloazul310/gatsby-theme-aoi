@@ -99,7 +99,7 @@ function Page() {
 export default Page;
 ```
 
-[Example](https://cieloazul.github.io/gatsby-starter-aoi-theme/tab-page/)
+[Example](https://cieloazul310.github.io/gatsby-starter-aoi-theme/tab-page/)
 
 ### Jumbotron Layout
 
@@ -126,7 +126,7 @@ function Page() {
 export default Page;
 ```
 
-[Example](https://cieloazul.github.io/gatsby-starter-aoi-theme/jumbotron/)
+[Example](https://cieloazul310.github.io/gatsby-starter-aoi-theme/jumbotron/)
 
 ## Layout Shadowing
 
