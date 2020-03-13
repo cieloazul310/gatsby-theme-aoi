@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
+import Button, { ButtonProps } from '@material-ui/core/Button';
 import { useLocation } from '@reach/router';
 import clsx from 'clsx';
 
@@ -32,7 +33,7 @@ export function AppLink(props: AppLinkProps) {
   const { pathname } = useLocation();
 
   const className = clsx(classNameProps, {
-    [activeClassName]: pathname === withPrefix(to) && activeClassName,
+    [activeClassName]: pathname === withPrefix(to) && activeClassName
   });
 
   if (naked) {
@@ -44,3 +45,15 @@ export function AppLink(props: AppLinkProps) {
   );
 }
 export default AppLink;
+
+interface ButtonPropsBase {
+  innerRef?: React.Ref<HTMLAnchorElement>;
+}
+
+export type AppLinkButtonProps = ButtonPropsBase & GatsbyLinkComposedProps & Omit<ButtonProps, 'href'>;
+
+export function AppLinkButton(props: AppLinkButtonProps) {
+  const { className, color = 'secondary', innerRef, to, ...other } = props;
+
+  return <Button component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} color={color} {...other} />;
+}

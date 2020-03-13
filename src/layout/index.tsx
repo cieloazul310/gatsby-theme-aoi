@@ -47,6 +47,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
     },
     main: {
       flex: 1,
+      maxWidth: '100%',
       paddingTop: theme.mixins.toolbar.minHeight,
       transition: theme.transitions.create('width'),
       [theme.breakpoints.down('xs')]: {
@@ -142,7 +143,7 @@ function Layout({
   );
 
   return (
-    <Box display="flex">
+    <Box display="flex" width="100%" maxWidth="100%">
       <SEO title={title} description={description} keywords={keywords} />
       <Header title={title} drawerWidth={disableDrawer ? 0 : drawerWidth} />
       {!disableDrawer ? drawer : null}
@@ -151,9 +152,9 @@ function Layout({
           <Box pt={disablePaddingTop ? 0 : 4} pb={4}>
             {tabs ? <Tabs tabSticky={tabSticky}>{tabs}</Tabs> : null}
             <main>{children}</main>
-            <Footer />
           </Box>
         </Container>
+        <Footer />
         {!disableFab ? (
           <Hidden mdUp implementation="css">
             <Box className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</Box>

@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { navigate, withPrefix } from 'gatsby';
-import Box from '@material-ui/core/Box';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 // icons
