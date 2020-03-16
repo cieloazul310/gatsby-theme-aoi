@@ -8,6 +8,7 @@ export interface UseSiteMetadataQuery {
       author: string;
       keywords: string[];
       lang: string;
+      siteUrl: string;
       social: {
         mail: string;
         twitter: string;
@@ -36,6 +37,7 @@ export function useSiteMetadata() {
           author
           keywords
           lang
+          siteUrl
           social {
             mail
             twitter

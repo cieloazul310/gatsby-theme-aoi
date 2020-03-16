@@ -2,7 +2,7 @@
 
 > A [Gatsby] theme for TypeScript-based Gatsby projects Material-UI.
 
-DEMO: https://cieloazul310.github.io/gatsby-starter-aoi-theme/
+DEMO: <https://cieloazul310.github.io/gatsby-starter-aoi-theme/>
 
 ## Features
 

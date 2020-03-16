@@ -4,37 +4,39 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
+import clsx from 'clsx';
 import { useSiteMetadata } from '../../graphql-hooks';
 import ButtonLeft from './ButtonLeft';
 import ButtonRight from './ButtonRight';
 
 interface StylesProps {
-  drawerWidth: number;
+  //drawerWidth: number;
 }
 
-const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
+const useStyles = makeStyles<Theme/*, StylesProps*/>((theme: Theme) =>
   createStyles({
     root: {
-      width: '100%',
       backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
       color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
-      transition: theme.transitions.create(['background', 'width']),
+      /*
+      width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`,
-      },
+        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`
+      }*/
     },
     title: {
       lineHeight: 1.2,
       display: 'flex',
       justifyContent: 'start',
       [theme.breakpoints.down('sm')]: {
-        justifyContent: 'center',
-      },
-    },
+        justifyContent: 'center'
+      }
+    }
   })
 );
 
 interface Props {
+  className: string;
   title: string;
   toggleDrawer?: () => any;
   onLeftButtonClick?: () => void;
@@ -42,11 +44,11 @@ interface Props {
   drawerWidth?: number;
 }
 
-function Header({ title, onLeftButtonClick, onRightButtonClick, drawerWidth = 280 }: Props) {
-  const classes = useStyles({ drawerWidth });
+function Header({ className, title, onLeftButtonClick, onRightButtonClick, drawerWidth = 280 }: Props) {
+  const classes = useStyles(/*{ drawerWidth }*/);
   const siteMetadata = useSiteMetadata();
   return (
-    <AppBar className={classes.root}>
+    <AppBar className={clsx(className, classes.root)}>
       <Toolbar>
         <ButtonLeft onButtonClick={onLeftButtonClick} />
         <Box flex="1" px={1}>

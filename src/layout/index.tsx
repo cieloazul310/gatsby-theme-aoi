@@ -15,72 +15,67 @@ import DrawerInner from './DrawerInner';
 import Footer from './Footer';
 import Fab from './Fab';
 import BottomNav from './BottomNav';
+import {
+  defaultComponentViewports,
+  headerStyles,
+  permanentDrawerStyles,
+  mainStyles,
+  fabStyles,
+  viewportsToHidden,
+  ComponentViewports
+} from '../utils/layoutViewports';
 
 /**
  * TODO: enable to change breakpoints via props
  * default layout and breakpoints
- * xs: Header, Drawer(Swipeable), BottomNav, Fab
- * sm: Header, Drawer(Swipeable), Fab
- * md: Header, Drawer(Permanent)
- * lg: Header, Drawer(Permanent)
- * xl: Header, Drawer(Permanent)
+ * Header ['xs', 'sm', 'md', 'lg', 'xl']
+ * TemporaryDrawer "smDown"
+ * PermanentDrawer "mdUp"
+ * BottomNav "xsDown"
+ * Fav "smDown"
  *
  * from props
  */
 
 interface StylesProps {
-  disableBottomNav: boolean;
   drawerWidth: number;
+  viewports: ComponentViewports;
 }
 
-const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
-  createStyles({
-    drawer: {
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => drawerWidth
-      }
-    },
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) => {
+  return createStyles({
+    header: ({ viewports, drawerWidth }) => headerStyles(viewports.PermanentDrawer)(theme, drawerWidth),
+    drawer: ({ viewports, drawerWidth }) => permanentDrawerStyles(viewports.PermanentDrawer)(theme, drawerWidth),
     drawerPaper: {
-      transition: theme.transitions.create(['background', 'width']),
       width: ({ drawerWidth }) => drawerWidth
     },
-    main: {
-      flex: 1,
-      maxWidth: '100%',
-      paddingTop: theme.mixins.toolbar.minHeight,
-      transition: theme.transitions.create('width'),
-      [theme.breakpoints.down('xs')]: {
-        paddingBottom: ({ disableBottomNav }) => (!disableBottomNav ? 56 : null)
-      },
-      [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`
-      },
-      [theme.breakpoints.up('sm')]: {
-        paddingTop: 64
-      }
-    },
-    menuFab: {
-      position: 'fixed',
-      right: theme.spacing(2),
-      bottom: theme.spacing(2),
-      transition: theme.transitions.create(['bottom', 'right']),
-      [theme.breakpoints.down('xs')]: {
-        bottom: ({ disableBottomNav }) => (!disableBottomNav ? `calc(${theme.spacing(2)}px + 56px)` : null)
-      }
-    }
-  })
-);
+    main: ({ viewports, drawerWidth }) =>
+      mainStyles(viewports)(theme, drawerWidth, {
+        flex: 1,
+        maxWidth: '100%',
+        paddingTop: theme.mixins.toolbar.minHeight,
+        [theme.breakpoints.up('sm')]: {
+          paddingTop: 64
+        }
+      }),
+    menuFab: ({ viewports }) =>
+      fabStyles(viewports.BottomNav)(theme, {
+        position: 'fixed',
+        right: theme.spacing(2),
+        bottom: theme.spacing(2),
+        transition: theme.transitions.create('bottom')
+      })
+  });
+});
 
 export interface LayoutProps extends ContainerProps {
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
   title?: string;
   description?: string;
   keywords?: string[];
+  image?: string;
   disablePaddingTop?: boolean;
-  disableDrawer?: boolean;
-  disableFab?: boolean;
-  disableBottomNav?: boolean;
+  componentViewports?: Partial<ComponentViewports>;
   drawerWidth?: number;
   tabSticky?: boolean;
   drawerContents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
@@ -94,22 +89,19 @@ function Layout({
   title,
   description,
   keywords,
+  image,
   tabs,
   drawerContents,
   disablePaddingTop,
   bottomNavigation,
   fab,
+  componentViewports = defaultComponentViewports,
   tabSticky = false,
-  disableDrawer = false,
-  disableFab = false,
-  disableBottomNav = false,
   drawerWidth = 280,
   ...options
 }: LayoutProps) {
-  const classes = useStyles({
-    disableBottomNav,
-    drawerWidth: disableDrawer ? 0 : drawerWidth
-  });
+  const viewports = { ...defaultComponentViewports, ...componentViewports };
+  const classes = useStyles({ viewports, drawerWidth });
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = React.useCallback(() => {
     toggleDrawer(!drawerOpen);
@@ -118,35 +110,39 @@ function Layout({
   const drawer = React.useMemo(
     () => (
       <nav className={classes.drawer}>
-        <Hidden mdUp implementation="css">
-          <SwipeableDrawer
-            classes={{ paper: classes.drawerPaper }}
-            variant="temporary"
-            onOpen={_toggleDrawer}
-            onClose={_toggleDrawer}
-            open={drawerOpen}
-            ModalProps={{
-              keepMounted: true
-            }}
-          >
-            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
-          </SwipeableDrawer>
-        </Hidden>
-        <Hidden smDown implementation="css">
-          <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
-            <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
-          </Drawer>
-        </Hidden>
+        {viewports.SwipeableDrawer !== false ? (
+          <Hidden {...viewportsToHidden(viewports.SwipeableDrawer)} implementation="css">
+            <SwipeableDrawer
+              classes={{ paper: classes.drawerPaper }}
+              variant="temporary"
+              onOpen={_toggleDrawer}
+              onClose={_toggleDrawer}
+              open={drawerOpen}
+              ModalProps={{
+                keepMounted: true
+              }}
+            >
+              <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
+            </SwipeableDrawer>
+          </Hidden>
+        ) : null}
+        {viewports.PermanentDrawer !== false ? (
+          <Hidden {...viewportsToHidden(viewports.PermanentDrawer)} implementation="css">
+            <Drawer classes={{ paper: classes.drawerPaper }} variant="permanent" open>
+              <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
+            </Drawer>
+          </Hidden>
+        ) : null}
       </nav>
     ),
-    [classes, _toggleDrawer, drawerOpen, drawerContents, title]
+    [classes, _toggleDrawer, drawerOpen, drawerContents, title, viewports]
   );
 
   return (
     <Box display="flex" width="100%" maxWidth="100%">
-      <SEO title={title} description={description} keywords={keywords} />
-      <Header title={title} drawerWidth={disableDrawer ? 0 : drawerWidth} />
-      {!disableDrawer ? drawer : null}
+      <SEO title={title} description={description} keywords={keywords} image={image} />
+      <Header className={classes.header} title={title} />
+      {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
       <Box className={classes.main}>
         <Container {...options}>
           <Box pt={disablePaddingTop ? 0 : 4} pb={4}>
@@ -155,14 +151,14 @@ function Layout({
           </Box>
         </Container>
         <Footer />
-        {!disableFab ? (
-          <Hidden mdUp implementation="css">
+        {viewports.Fab !== false ? (
+          <Hidden {...viewportsToHidden(viewports.Fab)} implementation="css">
             <Box className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</Box>
           </Hidden>
         ) : null}
       </Box>
-      {!disableBottomNav ? (
-        <Hidden smUp implementation="css">
+      {viewports.BottomNav !== false ? (
+        <Hidden {...viewportsToHidden(viewports.BottomNav)} implementation="css">
           <Box position="fixed" left={0} bottom={0} width="100%">
             {bottomNavigation || <BottomNav />}
           </Box>

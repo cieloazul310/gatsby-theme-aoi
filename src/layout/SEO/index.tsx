@@ -6,10 +6,19 @@ interface Props {
   title?: string;
   description?: string;
   keywords?: string[];
+  image?: string;
 }
 
-function SEO({ title, description, keywords }: Props) {
+function SEO({ title, description, keywords, image }: Props) {
   const siteMetadata = useSiteMetadata();
+  const images = image
+    ? [
+        {
+          name: 'og:image',
+          content: `${siteMetadata.siteUrl}${image}`,
+        },
+      ]
+    : [];
   return (
     <Helmet
       htmlAttributes={{ lang: siteMetadata.lang || 'en' }}
@@ -30,6 +39,7 @@ function SEO({ title, description, keywords }: Props) {
           name: 'twitter:description',
           content: description || siteMetadata.description,
         },
+        ...images,
       ]}
     />
   );
