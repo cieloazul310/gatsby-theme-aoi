@@ -16,15 +16,16 @@ import Footer from './Footer';
 import Fab from './Fab';
 import BottomNav from './BottomNav';
 import {
-  defaultComponentViewports,
-  headerStyles,
-  permanentDrawerStyles,
+  viewportsHelper,
+  mergeViewports,
   mainStyles,
+  permanentDrawerStyles,
   fabStyles,
   viewportsToHidden,
   ComponentViewports
 } from '../utils/layoutViewports';
 
+export { viewportsHelper };
 /**
  * TODO: enable to change breakpoints via props
  * default layout and breakpoints
@@ -42,22 +43,28 @@ interface StylesProps {
   viewports: ComponentViewports;
 }
 
-const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) => {
-  return createStyles({
-    header: ({ viewports, drawerWidth }) => headerStyles(viewports.PermanentDrawer)(theme, drawerWidth),
-    drawer: ({ viewports, drawerWidth }) => permanentDrawerStyles(viewports.PermanentDrawer)(theme, drawerWidth),
+const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
+  createStyles({
+    header: {
+      zIndex: theme.zIndex.drawer + 1,
+      width: '100%'
+    },
+    drawer: ({ viewports, drawerWidth }) =>
+      permanentDrawerStyles(viewports.PermanentDrawer)(theme, drawerWidth, {
+        flexShrink: 0
+      }),
     drawerPaper: {
       width: ({ drawerWidth }) => drawerWidth
     },
-    main: ({ viewports, drawerWidth }) =>
-      mainStyles(viewports)(theme, drawerWidth, {
-        flex: 1,
-        maxWidth: '100%',
-        paddingTop: theme.mixins.toolbar.minHeight,
-        [theme.breakpoints.up('sm')]: {
-          paddingTop: 64
-        }
-      }),
+    main: ({ viewports }) => mainStyles(viewports.BottomNav)(theme, {
+      flexGrow: 1,
+      maxWidth: '100%',
+      minWidth: 0,
+      paddingTop: theme.mixins.toolbar.minHeight,
+      [theme.breakpoints.up('sm')]: {
+        paddingTop: 64
+      }
+    }),
     menuFab: ({ viewports }) =>
       fabStyles(viewports.BottomNav)(theme, {
         position: 'fixed',
@@ -65,8 +72,8 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) => {
         bottom: theme.spacing(2),
         transition: theme.transitions.create('bottom')
       })
-  });
-});
+  })
+);
 
 export interface LayoutProps extends ContainerProps {
   children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
@@ -95,12 +102,12 @@ function Layout({
   disablePaddingTop,
   bottomNavigation,
   fab,
-  componentViewports = defaultComponentViewports,
+  componentViewports,
   tabSticky = false,
   drawerWidth = 280,
   ...options
 }: LayoutProps) {
-  const viewports = { ...defaultComponentViewports, ...componentViewports };
+  const viewports = mergeViewports(componentViewports);
   const classes = useStyles({ viewports, drawerWidth });
   const [drawerOpen, toggleDrawer] = React.useState(false);
   const _toggleDrawer = React.useCallback(() => {
@@ -141,22 +148,22 @@ function Layout({
   return (
     <Box display="flex" width="100%" maxWidth="100%">
       <SEO title={title} description={description} keywords={keywords} image={image} />
-      <Header className={classes.header} title={title} />
+      <Header className={classes.header} title={title} toggleDrawer={_toggleDrawer} />
       {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
       <Box className={classes.main}>
         <Container {...options}>
-          <Box pt={disablePaddingTop ? 0 : 4} pb={4}>
+          <Box pt={disablePaddingTop ? 0 : 6} pb={4}>
             {tabs ? <Tabs tabSticky={tabSticky}>{tabs}</Tabs> : null}
             <main>{children}</main>
           </Box>
         </Container>
         <Footer />
-        {viewports.Fab !== false ? (
-          <Hidden {...viewportsToHidden(viewports.Fab)} implementation="css">
-            <Box className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</Box>
-          </Hidden>
-        ) : null}
       </Box>
+      {viewports.Fab !== false ? (
+        <Hidden {...viewportsToHidden(viewports.Fab)} implementation="css">
+          <Box className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</Box>
+        </Hidden>
+      ) : null}
       {viewports.BottomNav !== false ? (
         <Hidden {...viewportsToHidden(viewports.BottomNav)} implementation="css">
           <Box position="fixed" left={0} bottom={0} width="100%">

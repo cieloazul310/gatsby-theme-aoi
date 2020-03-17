@@ -24,6 +24,27 @@ export const defaultComponentViewports: ComponentViewports = {
   Fab: 'smDown'
 };
 
+export function viewportsHelper(componentViewPorts: Partial<ComponentViewports>) {
+  return componentViewPorts;
+}
+
+export function mergeViewports(componentViewports: Partial<ComponentViewports>): ComponentViewports {
+  return componentViewports
+    ? {
+        SwipeableDrawer: pickViewports('SwipeableDrawer'),
+        PermanentDrawer: pickViewports('PermanentDrawer'),
+        BottomNav: pickViewports('BottomNav'),
+        Fab: pickViewports('Fab')
+      }
+    : defaultComponentViewports;
+
+  function pickViewports(key: 'SwipeableDrawer' | 'PermanentDrawer' | 'BottomNav' | 'Fab') {
+    return componentViewports.hasOwnProperty(key) && componentViewports[key] !== null
+      ? componentViewports[key]
+      : defaultComponentViewports[key];
+  }
+}
+
 /**
  * usage
  * <Hidden {...viewportsToHidden(componentViewPorts))}>
@@ -51,7 +72,7 @@ export function viewportsToHidden(viewports: Viewports): HiddenProps {
  *
  */
 
-export function headerStyles(permanentDrawerViewports: Viewports) {
+export function contentWidthStyles(permanentDrawerViewports: Viewports) {
   if (permanentDrawerViewports === true)
     return (theme: Theme, drawerWidth: number, styles: any = {}) => ({
       ...styles,
@@ -99,33 +120,24 @@ export function permanentDrawerStyles(permanentDrawerViewports: Viewports) {
   });
 }
 
-export function mainStyles({ PermanentDrawer, BottomNav }: ComponentViewports) {
+export function mainStyles(bottomNavViewports: Viewports) {
   // ex. "xsDown"
-  const BottomNavStyle = () => {
-    if (BottomNav === true)
-      return (theme: Theme, styles: any = {}) => ({
-        ...styles,
-        paddingBottom: 56
-      });
-    if (BottomNav === false) return (theme: Theme, styles: any = {}) => styles;
-
-    const breakpoint: Breakpoint = breakpointSlicer(BottomNav);
-    const direction = directionSlicer(BottomNav) === 'Up' ? 'up' : 'down';
-
+  if (bottomNavViewports === true)
     return (theme: Theme, styles: any = {}) => ({
       ...styles,
-      [theme.breakpoints[direction](breakpoint)]: {
-        paddingBottom: 56
-      }
+      paddingBottom: 56
     });
-  };
-  return (theme: Theme, drawerWidth: number, styles: any = {}) => {
-    return {
-      ...styles,
-      ...BottomNavStyle()(theme),
-      ...headerStyles(PermanentDrawer)(theme, drawerWidth)
-    };
-  }
+  if (bottomNavViewports === false) return (theme: Theme, styles: any = {}) => styles;
+
+  const breakpoint: Breakpoint = breakpointSlicer(bottomNavViewports);
+  const direction = directionSlicer(bottomNavViewports) === 'Up' ? 'up' : 'down';
+
+  return (theme: Theme, styles: any = {}) => ({
+    ...styles,
+    [theme.breakpoints[direction](breakpoint)]: {
+      paddingBottom: 56
+    }
+  });
 }
 
 export function fabStyles(bottomNavViewports: Viewports) {

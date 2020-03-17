@@ -128,6 +128,95 @@ export default Page;
 
 [Example](https://cieloazul310.github.io/gatsby-starter-aoi-theme/jumbotron/)
 
+### Customize Layout
+
+#### Use `componentViewports` props
+
+```tsx
+<Layout
+  title="Full Width Layout"
+  componentViewports={{
+    PermanentDrawer: false,
+    SwipeableDrawer: true,
+    Fab: true
+    BottomNav: 'smDown'
+  }}
+>
+  {any}
+</Layout>
+```
+
+value: Viewport (`xsDown`, `xsUp`, `smDown`, `smUp`, `mdDown`, `mdUp`, `lgDown`, `lgUp`, `xlDown`, `xlUp`) | boolean | null
+
+`true` means components always showing and `false` means always hiding (equal to former `disableDrawer`, `disableFab`, `disableBottomNav`).
+
+| component       | default |
+| :-------------- | :------ |
+| PermanentDrawer | mdUp    |
+| SwipeableDrawer | smDown  |
+| Fab             | smDown  |
+| BottomNav       | xsDown  |
+
+#### Insert Contents from page
+
+```tsx
+<Layout
+  title="Insert Fab"
+  componentViewports={{
+    Fab: true
+  }}
+  fab={<Fab onClick={_toggleDark}>{isDark ? <Brightness4Icon /> : <Brightness5Icon />}</Fab>}
+>
+  {any}
+</Layout>
+```
+
+### Layout API
+
+#### Props
+
+`<Layout>` component have a props of Material-UI `<Container>` which is first child of main section.
+<https://material-ui.com/api/container/>
+
+| Name               | Type                          | Default | Description                                                         |
+| :----------------- | :---------------------------- | :------ | :------------------------------------------------------------------ |
+| children           | `node`                        |         | child element                                                       |
+| title              | `string`                      |         | for Header, SEO                                                         |
+| description        | `string`                      |         | for SEO                                                                 |
+| keywords           | `string[]`                    |         | for SEO                                                                 |
+| image              | `string`                      |         | for SEO                                                                 |
+| disablePaddingTop  | `boolean`                     | false   | set padding to contents top                                         |
+| componentViewports | `Partial<ComponentViewports>` |         |                                                                     |
+| drawerWidth        | `number`                      | 280     |                                                                     |
+| tabSticky          | `boolean`                     | false   | enable sticky tab component                                         |
+| drawerContents     | `node`                        |         | Insert drawer contents from props, which is displayed top of drawer |
+| tabs               | `node`                        |         | Insert tabs from props                                              |
+| bottomNavigation   | `node`                        |         | Insert BottomNav from props                                         |
+| fab                | `node`                        |         | Insert Fab from props                                               |
+
+Every prop is optional.
+
+### Layout Structure
+
+```tsx
+<div>
+  <SEO />
+  <Header />
+  <Drawer />
+  <div>
+    <Container {...props}>
+      <Box pt={disablePaddingTop ? 0 : 6}>
+        {tabs ? <Tabs /> : null}
+        <main>{children}</main>
+      </Box>
+    </Container>
+    <Footer />
+  </div>
+  <Fab />
+  <BottomNav />
+</div>
+```
+
 ## Layout Shadowing
 
 ### your project src directory
@@ -173,8 +262,6 @@ Gatsby automatically conbined these components.
 │   └── index.tsx
 ├── SEO
 │   └── index.tsx
-├── TabPageLayout
-│   └── index.tsx
 ├── TabPane
 │   └── index.tsx
 ├── Tabs
@@ -188,7 +275,7 @@ Gatsby automatically conbined these components.
 - [gatsby-starter-aoi-theme] A Gatsby starter kit using gatsby-theme-aoi
 - [gatsby-starter-aoi] A Gatsby starter kit (deprecated)
 
-[Gatsby]: https://www.gatsbyjs.org/ "Gatsby"
-[gatsby-theme-aoi-top-layout]: https://github.com/cieloazul310/gatsby-theme-aoi-top-layout/ "Gatsby Theme Aoi Top Layout"
-[gatsby-starter-aoi-theme]: https://github.com/cieloazul310/gatsby-theme-aoi/ "Gatsby Starter Aoi Theme"
-[gatsby-starter-aoi]: https://github.com/cieloazul310/gatsby-starter-aoi/ "Gatsby Starter Aoi"
+[gatsby]: https://www.gatsbyjs.org/ 'Gatsby'
+[gatsby-theme-aoi-top-layout]: https://github.com/cieloazul310/gatsby-theme-aoi-top-layout/ 'Gatsby Theme Aoi Top Layout'
+[gatsby-starter-aoi-theme]: https://github.com/cieloazul310/gatsby-theme-aoi/ 'Gatsby Starter Aoi Theme'
+[gatsby-starter-aoi]: https://github.com/cieloazul310/gatsby-starter-aoi/ 'Gatsby Starter Aoi'

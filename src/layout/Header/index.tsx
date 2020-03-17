@@ -9,20 +9,11 @@ import { useSiteMetadata } from '../../graphql-hooks';
 import ButtonLeft from './ButtonLeft';
 import ButtonRight from './ButtonRight';
 
-interface StylesProps {
-  //drawerWidth: number;
-}
-
-const useStyles = makeStyles<Theme/*, StylesProps*/>((theme: Theme) =>
+const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
     root: {
       backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
       color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
-      /*
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: ({ drawerWidth }) => `calc(100% - ${drawerWidth}px)`
-      }*/
     },
     title: {
       lineHeight: 1.2,
@@ -41,11 +32,10 @@ interface Props {
   toggleDrawer?: () => any;
   onLeftButtonClick?: () => void;
   onRightButtonClick?: () => void;
-  drawerWidth?: number;
 }
 
-function Header({ className, title, onLeftButtonClick, onRightButtonClick, drawerWidth = 280 }: Props) {
-  const classes = useStyles(/*{ drawerWidth }*/);
+function Header({ className, title, onLeftButtonClick, onRightButtonClick }: Props) {
+  const classes = useStyles();
   const siteMetadata = useSiteMetadata();
   return (
     <AppBar className={clsx(className, classes.root)}>
