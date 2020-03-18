@@ -14,6 +14,11 @@ DEMO: <https://cieloazul310.github.io/gatsby-starter-aoi-theme/>
 
 ## Getting Started
 
+1. [Install](#install)
+2. [Use Layout](#use-layout)
+3. [Set your MuiTheme](#set-your-muitheme)
+4. [Use App State](#use-app-state)
+
 ### install
 
 Using [gatsby-starter-aoi-theme]
@@ -28,7 +33,7 @@ or if individually
 yarn add gatsby-theme-aoi
 ```
 
-### config
+and
 
 ```js:gatsby-config.js
 module.exports = {
@@ -40,9 +45,9 @@ module.exports = {
 }
 ```
 
-## Layouts
+### Use Layout
 
-### Default Layout
+#### Default Layout
 
 ```tsx
 import Typography from '@material-ui/core/Typography';
@@ -60,9 +65,9 @@ function Page() {
 export default Page;
 ```
 
-Easy to customize. Read docs.
+Easy to customize
 
-### Tab Layout
+#### Tab Layout
 
 ```tsx
 import Typography from '@material-ui/core/Typography';
@@ -101,7 +106,7 @@ export default Page;
 
 [Example](https://cieloazul310.github.io/gatsby-starter-aoi-theme/tab-page/)
 
-### Jumbotron Layout
+#### Jumbotron Layout
 
 ```tsx
 import Box from '@material-ui/core/Box';
@@ -128,9 +133,9 @@ export default Page;
 
 [Example](https://cieloazul310.github.io/gatsby-starter-aoi-theme/jumbotron/)
 
-### Customize Layout
+#### Create your Layout
 
-#### Use `componentViewports` props
+##### Use `componentViewports` props
 
 ```tsx
 <Layout
@@ -157,7 +162,7 @@ value: Viewport (`xsDown`, `xsUp`, `smDown`, `smUp`, `mdDown`, `mdUp`, `lgDown`,
 | Fab             | smDown  |
 | BottomNav       | xsDown  |
 
-#### Insert Contents from page
+##### Insert Contents from page
 
 ```tsx
 <Layout
@@ -171,9 +176,9 @@ value: Viewport (`xsDown`, `xsUp`, `smDown`, `smUp`, `mdDown`, `mdUp`, `lgDown`,
 </Layout>
 ```
 
-### Layout API
+#### Layout API
 
-#### Props
+##### Props
 
 `<Layout>` component have a props of Material-UI `<Container>` which is first child of main section.
 <https://material-ui.com/api/container/>
@@ -196,7 +201,7 @@ value: Viewport (`xsDown`, `xsUp`, `smDown`, `smUp`, `mdDown`, `mdUp`, `lgDown`,
 
 Every prop is optional.
 
-### Layout Structure
+#### Layout Structure
 
 ```tsx
 <div>
@@ -217,9 +222,9 @@ Every prop is optional.
 </div>
 ```
 
-## Layout Shadowing
+#### Layout Shadowing
 
-### your project src directory
+##### your project src directory
 
 ```txt
 src
@@ -240,7 +245,7 @@ src
 
 Gatsby automatically conbined these components.
 
-### Theme Layout Structure
+##### Theme Layout Structure
 
 ```txt
 .
@@ -267,6 +272,73 @@ Gatsby automatically conbined these components.
 ├── Tabs
 │   └── index.tsx
 └── index.tsx
+```
+
+### Set Your MuiTheme
+
+change your `src/gatsby-theme-aoi-top-layout/utils/theme.ts`
+
+```ts
+import blue from '@material-ui/core/colors/blue';
+import red from '@material-ui/core/colors/red';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
+
+const theme = createMuiTheme({
+  palette: {
+    primary: blue, // your primary color
+    secondary: red, // your secondary color
+  },
+});
+
+export default responsiveFontSizes(theme);
+// or export default theme;
+```
+
+### Use App State
+
+change your `src/gatsby-theme-aoi-top-layout/utils/AppState.ts`
+
+```ts
+/**
+ * Gatsby Theme Shadowing
+ * MUST
+ * export type AppState;
+ * export const initialAppState
+ * export type Action
+ * export default function reducer
+ */
+
+export interface AppState {
+  count: number;
+}
+
+export const initialAppState: AppState = {
+  count: 0,
+};
+
+export type Action = { type: 'INCREMENT' } | { type: 'DECREMENT' } | { type: 'RESET_COUNT' };
+
+export default function reducer(state: AppState, action: Action): AppState {
+  switch (action.type) {
+    case 'INCREMENT':
+      return {
+        ...state,
+        count: state.count + 1,
+      };
+    case 'DECREMENT':
+      return {
+        ...state,
+        count: Math.max(state.count - 1, 0),
+      };
+    case 'RESET_COUNT':
+      return {
+        ...state,
+        count: 0,
+      };
+    default:
+      throw new Error();
+  }
+}
 ```
 
 ## Related Repositories

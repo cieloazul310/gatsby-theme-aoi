@@ -50,23 +50,24 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       width: '100%'
     },
     drawer: ({ viewports, drawerWidth }) =>
-      permanentDrawerStyles(viewports.PermanentDrawer)(theme, drawerWidth, {
+      permanentDrawerStyles(viewports.PermanentDrawer, theme, drawerWidth, {
         flexShrink: 0
       }),
     drawerPaper: {
       width: ({ drawerWidth }) => drawerWidth
     },
-    main: ({ viewports }) => mainStyles(viewports.BottomNav)(theme, {
-      flexGrow: 1,
-      maxWidth: '100%',
-      minWidth: 0,
-      paddingTop: theme.mixins.toolbar.minHeight,
-      [theme.breakpoints.up('sm')]: {
-        paddingTop: 64
-      }
-    }),
+    main: ({ viewports }) =>
+      mainStyles(viewports.BottomNav, theme, {
+        flexGrow: 1,
+        maxWidth: '100%',
+        minWidth: 0,
+        paddingTop: theme.mixins.toolbar.minHeight,
+        [theme.breakpoints.up('sm')]: {
+          paddingTop: 64
+        }
+      }),
     menuFab: ({ viewports }) =>
-      fabStyles(viewports.BottomNav)(theme, {
+      fabStyles(viewports.BottomNav, theme, {
         position: 'fixed',
         right: theme.spacing(2),
         bottom: theme.spacing(2),
@@ -148,7 +149,7 @@ function Layout({
   return (
     <Box display="flex" width="100%" maxWidth="100%">
       <SEO title={title} description={description} keywords={keywords} image={image} />
-      <Header className={classes.header} title={title} toggleDrawer={_toggleDrawer} />
+      <Header className={classes.header} title={title} toggleDrawer={_toggleDrawer} componentViewports={viewports} />
       {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
       <Box className={classes.main}>
         <Container {...options}>

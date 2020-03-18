@@ -16,24 +16,24 @@ type Props = {
 
 function ShareButtons({ className, title, color = 'default' }: Props) {
   const isClient = useUpdateOnClient();
-  const { github } = useSiteMetadata().social;
+  const { lang, social } = useSiteMetadata();
   const twitterUrl = useSocialShare('twitter', title);
   const fbUrl = useSocialShare('facebook');
   return (
     <Box className={className}>
-      <Tooltip title="Share On Twitter">
+      <Tooltip title={lang === 'ja' ? 'Twitterでシェア' : "Share On Twitter"}>
         <IconButton key={isClient} color={color} href={twitterUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Twitter">
           <TwitterIcon />
         </IconButton>
       </Tooltip>
-      <Tooltip title="Share on Facebook">
+      <Tooltip title={lang === 'ja' ? 'Facebookで共有' : "Share on Facebook"}>
         <IconButton key={isClient} color={color} href={fbUrl} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
           <FacebookIcon />
         </IconButton>
       </Tooltip>
-      {github ? (
+      {social.github ? (
         <Tooltip title="GitHub">
-          <IconButton color={color} href={`https://github.com/${github}`} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <IconButton color={color} href={`https://github.com/${social.github}`} target="_blank" rel="noopener noreferrer" aria-label="GitHub">
             <GithubIcon />
           </IconButton>
         </Tooltip>

@@ -5,6 +5,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
+import { ComponentViewports } from '../../utils/layoutViewports';
 import { useSiteMetadata } from '../../graphql-hooks';
 import ButtonLeft from './ButtonLeft';
 import ButtonRight from './ButtonRight';
@@ -29,24 +30,23 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
 interface Props {
   className: string;
   title: string;
+  componentViewports: ComponentViewports;
   toggleDrawer?: () => any;
-  onLeftButtonClick?: () => void;
-  onRightButtonClick?: () => void;
 }
 
-function Header({ className, title, onLeftButtonClick, onRightButtonClick }: Props) {
+function Header({ className, title, componentViewports, toggleDrawer }: Props) {
   const classes = useStyles();
   const siteMetadata = useSiteMetadata();
   return (
     <AppBar className={clsx(className, classes.root)}>
       <Toolbar>
-        <ButtonLeft onButtonClick={onLeftButtonClick} />
+        <ButtonLeft componentViewports={componentViewports} toggleDrawer={toggleDrawer} />
         <Box flex="1" px={1}>
           <Typography className={classes.title} variant="h6" component="h1" color="inherit">
             {title || siteMetadata.title}
           </Typography>
         </Box>
-        <ButtonRight title={title} onButtonClick={onRightButtonClick} />
+        <ButtonRight title={title} />
       </Toolbar>
     </AppBar>
   );

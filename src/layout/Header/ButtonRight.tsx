@@ -6,7 +6,6 @@ import ShareButtons from './ShareButtons';
 
 interface Props {
   title?: string;
-  onButtonClick?: () => void;
 }
 
 function ButtonRight({ title }: Props) {

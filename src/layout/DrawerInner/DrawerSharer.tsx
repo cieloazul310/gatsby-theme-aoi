@@ -9,6 +9,7 @@ import FacebookIcon from '@material-ui/icons/Facebook';
 import { faLine } from '@fortawesome/free-brands-svg-icons';
 
 import FabIcon from '../../components/FabIcon';
+import { useSiteMetadata } from '../../graphql-hooks';
 import useSocialShare from '../../utils/useSocialShare';
 import useUpdateOnClint from '../../utils/useUpdateOnClient';
 
@@ -18,6 +19,7 @@ interface Props {
 
 function DrawerSharer({ title }: Props) {
   const isClient = useUpdateOnClint();
+  const { lang } = useSiteMetadata();
   const twitterUrl = useSocialShare('twitter', title);
   const fbUrl = useSocialShare('facebook');
   const lineUrl = useSocialShare('line');
@@ -27,19 +29,19 @@ function DrawerSharer({ title }: Props) {
         <ListItemIcon>
           <TwitterIcon />
         </ListItemIcon>
-        <ListItemText primary="Share on Twitter" />
+        <ListItemText primary={lang === 'ja' ? 'Twitterでシェア' : 'Share on Twitter'} />
       </ListItem>
       <ListItem button component="a" href={fbUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FacebookIcon />
         </ListItemIcon>
-        <ListItemText primary="Share on Facebook" />
+        <ListItemText primary={lang === 'ja' ? 'Facebookでシェア' : 'Share on Facebook'} />
       </ListItem>
       <ListItem button component="a" href={lineUrl} target="_blank" rel="noopener noreferrer">
         <ListItemIcon>
           <FabIcon icon={faLine} />
         </ListItemIcon>
-        <ListItemText primary="Share on Line" />
+        <ListItemText primary={lang === 'ja' ? 'LINEで送る' : 'Share on LINE'} />
       </ListItem>
     </List>
   );
