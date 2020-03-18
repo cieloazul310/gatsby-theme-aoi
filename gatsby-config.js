@@ -28,8 +28,7 @@ module.exports = options => {
       {
         resolve: `gatsby-theme-aoi-top-layout`,
         options: {
-          //theme: muiTheme
-          utilPath: path.resolve('./src/util')
+          siteId: options.siteId,
         }
       },
       `gatsby-plugin-material-ui`,

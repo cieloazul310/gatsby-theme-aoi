@@ -27,34 +27,35 @@ function SEO({ title, description, keywords, image }: Props) {
       meta={[
         {
           name: 'description',
-          content: description || siteMetadata.description
+          content: description || siteMetadata.description,
         },
         { name: 'keywords', content: keywords ? [...keywords, ...siteMetadata.keywords].join(', ') : siteMetadata.keywords.join(', ') },
         {
           name: 'og:type',
-          content: 'website'
+          content: 'website',
         },
         {
           name: 'og:title',
-          content: title || siteMetadata.title
+          content: title || siteMetadata.title,
         },
         {
           name: 'og:description',
-          content: description || siteMetadata.description
+          content: description || siteMetadata.description,
         },
         { name: 'twitter:card', content: 'summary' },
         {
-          name: 'twitter:site', content: siteMetadata.title
+          name: 'twitter:site',
+          content: siteMetadata.title,
         },
         {
           name: 'twitter:title',
-          content: title ? `${title} | ${siteMetadata.title}` : siteMetadata.title
+          content: title ? `${title} | ${siteMetadata.title}` : siteMetadata.title,
         },
         {
           name: 'twitter:description',
-          content: description || siteMetadata.description
+          content: description || siteMetadata.description,
         },
-        ...images
+        ...images,
       ]}
     />
   );

@@ -7,11 +7,11 @@ type Props = {
   jumbotron: JSX.Element | JSX.Element[];
 } & LayoutProps;
 
-export default function JumbotronLayout({ jumbotron, children, maxWidth = false, ...props }: Props) {
+export default function JumbotronLayout({ jumbotron, disableGutters, children, maxWidth = false, ...props }: Props) {
   return (
     <Layout maxWidth={false} disableGutters disablePaddingTop {...props}>
       {jumbotron}
-      <Container maxWidth={maxWidth}>
+      <Container maxWidth={maxWidth} disableGutters={disableGutters}>
         <Box py={4}>{children}</Box>
       </Container>
     </Layout>

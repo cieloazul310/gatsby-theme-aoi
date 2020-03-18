@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -20,9 +19,9 @@ const useStyles = makeStyles((theme: Theme) =>
       alignItems: 'center',
       paddingLeft: theme.spacing(3),
       [theme.breakpoints.down('xs')]: {
-        paddingLeft: theme.spacing(2)
-      }
-    }
+        paddingLeft: theme.spacing(2),
+      },
+    },
   })
 );
 
@@ -35,14 +34,14 @@ interface Props {
 function DrawerInner({ handleDrawer, contents, title }: Props) {
   const classes = useStyles();
   return (
-    <Box>
-      <Box className={classes.toolbar}>
+    <div>
+      <div className={classes.toolbar}>
         <Tooltip title="Close">
           <IconButton onClick={handleDrawer} edge="start">
             <CloseIcon />
           </IconButton>
         </Tooltip>
-      </Box>
+      </div>
       <Divider />
       {contents}
       <Divider />
@@ -53,7 +52,7 @@ function DrawerInner({ handleDrawer, contents, title }: Props) {
       <DrawerSharer title={title} />
       <Divider />
       <DrawerFooter />
-    </Box>
+    </div>
   );
 }
 

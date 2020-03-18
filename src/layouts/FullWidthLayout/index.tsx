@@ -6,10 +6,10 @@ function FullWidthLayout({ children, componentViewports, ...props }: LayoutProps
     ...componentViewports,
     SwipeableDrawer: true,
     PermanentDrawer: false,
-    Fab: true
+    Fab: true,
   });
   return (
-    <Layout componentViewports={fullWidthViewports} { ...props}>
+    <Layout componentViewports={fullWidthViewports} {...props}>
       {children}
     </Layout>
   );

@@ -21,7 +21,7 @@ export const defaultComponentViewports: ComponentViewports = {
   SwipeableDrawer: 'smDown',
   PermanentDrawer: 'mdUp',
   BottomNav: 'xsDown',
-  Fab: 'smDown'
+  Fab: 'smDown',
 };
 
 export function viewportsHelper(componentViewPorts: Partial<ComponentViewports>) {
@@ -34,7 +34,7 @@ export function mergeViewports(componentViewports: Partial<ComponentViewports>):
         SwipeableDrawer: pickViewports('SwipeableDrawer'),
         PermanentDrawer: pickViewports('PermanentDrawer'),
         BottomNav: pickViewports('BottomNav'),
-        Fab: pickViewports('Fab')
+        Fab: pickViewports('Fab'),
       }
     : defaultComponentViewports;
 
@@ -76,12 +76,12 @@ export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: T
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
       ...styles,
-      width: `calc(100% - ${drawerWidth}px)`
+      width: `calc(100% - ${drawerWidth}px)`,
     };
   if (permanentDrawerViewports === false)
     return {
       ...styles,
-      width: '100%'
+      width: '100%',
     };
 
   const breakpoint: Breakpoint = breakpointSlicer(permanentDrawerViewports);
@@ -91,8 +91,8 @@ export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: T
     ...styles,
     width: '100%',
     [theme.breakpoints[direction](breakpoint)]: {
-      width: `calc(100% - ${drawerWidth}px)`
-    }
+      width: `calc(100% - ${drawerWidth}px)`,
+    },
   };
 }
 
@@ -101,12 +101,12 @@ export function permanentDrawerStyles(permanentDrawerViewports: Viewports, theme
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
       ...styles,
-      width: drawerWidth
+      width: drawerWidth,
     };
   if (permanentDrawerViewports === false)
     return {
       ...styles,
-      width: 0
+      width: 0,
     };
 
   const breakpoint: Breakpoint = breakpointSlicer(permanentDrawerViewports);
@@ -115,8 +115,8 @@ export function permanentDrawerStyles(permanentDrawerViewports: Viewports, theme
   return {
     ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
-      width: drawerWidth
-    }
+      width: drawerWidth,
+    },
   };
 }
 
@@ -125,7 +125,7 @@ export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: 
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
       ...styles,
-      paddingBottom: 56
+      paddingBottom: 56,
     };
   if (bottomNavViewports === false) return styles;
 
@@ -135,8 +135,8 @@ export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: 
   return {
     ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
-      paddingBottom: 56
-    }
+      paddingBottom: 56,
+    },
   };
 }
 
@@ -145,7 +145,7 @@ export function fabStyles(bottomNavViewports: Viewports, theme: Theme, styles: a
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
       ...styles,
-      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`
+      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
     };
   if (bottomNavViewports === false) return styles;
 
@@ -155,8 +155,8 @@ export function fabStyles(bottomNavViewports: Viewports, theme: Theme, styles: a
   return {
     ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
-      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`
-    }
+      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
+    },
   };
 }
 

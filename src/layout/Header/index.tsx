@@ -21,9 +21,9 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
       display: 'flex',
       justifyContent: 'start',
       [theme.breakpoints.down('sm')]: {
-        justifyContent: 'center'
-      }
-    }
+        justifyContent: 'center',
+      },
+    },
   })
 );
 

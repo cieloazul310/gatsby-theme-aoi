@@ -1,8 +1,22 @@
 {
   "name": "gatsby-theme-aoi",
   "description": "Gatsby Theme TypeScript Material-UI",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "author": "cieloazul310 <cieloazul310@gmail.com>",
+  "homepage": "https://github.com/cieloazul310/gatsby-theme-aoi",
+  "repository": "github:cieloazul310/gatsby-theme-aoi",
+  "keywords": [
+    "gatsby",
+    "gatsby-theme",
+    "typescript",
+    "material-ui"
+  ],
+  "license": "MIT",
+  "main": "gatsby-config.js",
+  "scripts": {
+    "format": "prettier --parser typescript --trailing-comma es5 --single-quote --write \"src/**/*.ts*\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-brands-svg-icons": "^5.7.2",
@@ -17,20 +31,8 @@
     "gatsby-plugin-material-ui": "^2.1.6",
     "gatsby-plugin-react-helmet": "^3.0.7",
     "gatsby-plugin-typescript": "^2.0.9",
-    "gatsby-theme-aoi-top-layout": "0.0.3",
+    "gatsby-theme-aoi-top-layout": "1.0.0",
     "react-helmet": "^5.2.0"
-  },
-  "keywords": [
-    "gatsby",
-    "gatsby-theme",
-    "typescript",
-    "material-ui"
-  ],
-  "license": "MIT",
-  "main": "gatsby-config.js",
-  "scripts": {
-    "format": "prettier --parser typescript --trailing-comma es5 --single-quote --write \"src/**/*.ts*\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.5",

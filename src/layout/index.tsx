@@ -22,7 +22,7 @@ import {
   permanentDrawerStyles,
   fabStyles,
   viewportsToHidden,
-  ComponentViewports
+  ComponentViewports,
 } from '../utils/layoutViewports';
 
 export { viewportsHelper };
@@ -47,14 +47,14 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
     header: {
       zIndex: theme.zIndex.drawer + 1,
-      width: '100%'
+      width: '100%',
     },
     drawer: ({ viewports, drawerWidth }) =>
       permanentDrawerStyles(viewports.PermanentDrawer, theme, drawerWidth, {
-        flexShrink: 0
+        flexShrink: 0,
       }),
     drawerPaper: {
-      width: ({ drawerWidth }) => drawerWidth
+      width: ({ drawerWidth }) => drawerWidth,
     },
     main: ({ viewports }) =>
       mainStyles(viewports.BottomNav, theme, {
@@ -63,16 +63,16 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
         minWidth: 0,
         paddingTop: theme.mixins.toolbar.minHeight,
         [theme.breakpoints.up('sm')]: {
-          paddingTop: 64
-        }
+          paddingTop: 64,
+        },
       }),
     menuFab: ({ viewports }) =>
       fabStyles(viewports.BottomNav, theme, {
         position: 'fixed',
         right: theme.spacing(2),
         bottom: theme.spacing(2),
-        transition: theme.transitions.create('bottom')
-      })
+        transition: theme.transitions.create('bottom'),
+      }),
   })
 );
 
@@ -127,7 +127,7 @@ function Layout({
               onClose={_toggleDrawer}
               open={drawerOpen}
               ModalProps={{
-                keepMounted: true
+                keepMounted: true,
               }}
             >
               <DrawerInner handleDrawer={_toggleDrawer} contents={drawerContents} title={title} />
@@ -151,7 +151,7 @@ function Layout({
       <SEO title={title} description={description} keywords={keywords} image={image} />
       <Header className={classes.header} title={title} toggleDrawer={_toggleDrawer} componentViewports={viewports} />
       {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
-      <Box className={classes.main}>
+      <div className={classes.main}>
         <Container {...options}>
           <Box pt={disablePaddingTop ? 0 : 6} pb={4}>
             {tabs ? <Tabs tabSticky={tabSticky}>{tabs}</Tabs> : null}
@@ -159,10 +159,10 @@ function Layout({
           </Box>
         </Container>
         <Footer />
-      </Box>
+      </div>
       {viewports.Fab !== false ? (
         <Hidden {...viewportsToHidden(viewports.Fab)} implementation="css">
-          <Box className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</Box>
+          <div className={classes.menuFab}>{fab || <Fab onClick={_toggleDrawer} />}</div>
         </Hidden>
       ) : null}
       {viewports.BottomNav !== false ? (
