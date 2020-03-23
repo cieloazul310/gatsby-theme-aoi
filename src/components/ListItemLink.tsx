@@ -7,23 +7,25 @@ import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppLink from './AppLink';
 
-type ListItemLinkProps<T = {}> = Omit<ListItemProps, 'button' | 'ref'> &
-  Partial<Pick<MuiLinkProps, 'color'>> & {
+type ListItemLinkProps<T = {}> = Omit<ListItemProps, 'ref'> &
+  Pick<MuiLinkProps, 'color'> & {
     to: string;
     primaryText: string;
     secondaryText?: string;
-  } & Omit<GatsbyLinkProps<T>, 'ref'>;
+    inset?: boolean;
+  } & Omit<GatsbyLinkProps<T>, 'ref' | 'button'>;
 
-function ListItemLink({ color = 'inherit', to, primaryText, secondaryText, ...props }: ListItemLinkProps) {
+function ListItemLink({ color = 'inherit', button = false, inset = false, to, primaryText, secondaryText, ...props }: ListItemLinkProps) {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'));
-  
-  return isMobile ? (
+
+  return isMobile || button ? (
     <ListItem component={GatsbyLink} to={to} button {...props}>
-      <ListItemText primary={primaryText} secondary={secondaryText} />
+      <ListItemText primary={primaryText} secondary={secondaryText} inset={inset} />
     </ListItem>
   ) : (
     <ListItem {...props}>
       <ListItemText
+        inset={inset}
         primary={
           <AppLink to={to} color={color}>
             {primaryText}

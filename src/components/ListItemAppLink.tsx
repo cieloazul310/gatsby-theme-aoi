@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 
-type GatsbyLinkComposedProps<T = {}> = Omit<GatsbyLinkProps<T>, 'ref'>;
+type GatsbyLinkComposedProps<T = {}> = Omit<GatsbyLinkProps<T>, 'ref' | 'button'>;
 
 const GatsbyLinkComposed = React.forwardRef<any, GatsbyLinkComposedProps>((props, ref) => {
   const { to, state, ...other } = props;
@@ -14,15 +14,18 @@ interface ListItemAppLinkPropsBase {
   naked?: boolean;
 }
 
-export type ListItemAppLinkProps = ListItemAppLinkPropsBase & GatsbyLinkComposedProps & Omit<ListItemProps, 'ref' | 'button'>;
+export type ListItemAppLinkProps = ListItemAppLinkPropsBase & GatsbyLinkComposedProps & Omit<ListItemProps, 'ref'>;
 
 export function ListItemAppLink(props: ListItemAppLinkProps) {
-  const { className, innerRef, naked, to, ...other } = props;
+  const { className, innerRef, naked, to, button, ...other } = props;
 
   if (naked) {
     return <GatsbyLinkComposed className={className} ref={innerRef} to={to} {...other} />;
   }
-
+  if (button) {
+    return <ListItem component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} button {...other} />;
+  }
+  
   return <ListItem component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} {...other} />;
 }
 
