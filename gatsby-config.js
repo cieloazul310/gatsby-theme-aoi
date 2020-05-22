@@ -1,6 +1,4 @@
-const path = require('path');
-
-module.exports = options => {
+module.exports = (options) => {
   return {
     siteMetadata: {
       title: `Gatsby Theme TypeScript Material-UI`,
@@ -21,19 +19,18 @@ module.exports = options => {
         tumblr: '',
         instagram: '',
         vimeo: '',
-        youtube: ''
-      }
+        youtube: '',
+      },
     },
     plugins: [
       {
         resolve: `gatsby-theme-aoi-top-layout`,
         options: {
           siteId: options.siteId,
-        }
+        },
       },
       `gatsby-plugin-material-ui`,
       `gatsby-plugin-react-helmet`,
-      `gatsby-plugin-typescript`
-    ]
+    ],
   };
 };

@@ -7,7 +7,7 @@ import { Theme } from '@material-ui/core/styles';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import AppLink from './AppLink';
 
-type ListItemLinkProps<T = {}> = Omit<ListItemProps, 'ref'> &
+type ListItemLinkProps<T = Record<string, unknown>> = Omit<ListItemProps, 'ref'> &
   Pick<MuiLinkProps, 'color'> & {
     to: string;
     primaryText: string;

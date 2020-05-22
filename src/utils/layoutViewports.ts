@@ -72,7 +72,12 @@ export function viewportsToHidden(viewports: Viewports): HiddenProps {
  *
  */
 
-export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: Theme, drawerWidth: number, styles: any = {}) {
+export function contentWidthStyles(
+  permanentDrawerViewports: Viewports,
+  theme: Theme,
+  drawerWidth: number,
+  styles: Record<string, unknown> = {}
+) {
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
       ...styles,
@@ -96,7 +101,12 @@ export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: T
   };
 }
 
-export function permanentDrawerStyles(permanentDrawerViewports: Viewports, theme: Theme, drawerWidth: number, styles: any = {}) {
+export function permanentDrawerStyles(
+  permanentDrawerViewports: Viewports,
+  theme: Theme,
+  drawerWidth: number,
+  styles: Record<string, unknown> = {}
+) {
   // ex. "mdUp"
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
@@ -120,7 +130,7 @@ export function permanentDrawerStyles(permanentDrawerViewports: Viewports, theme
   };
 }
 
-export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: any = {}) {
+export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: Record<string, unknown> = {}) {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
@@ -140,7 +150,7 @@ export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: 
   };
 }
 
-export function fabStyles(bottomNavViewports: Viewports, theme: Theme, styles: any = {}) {
+export function fabStyles(bottomNavViewports: Viewports, theme: Theme, styles: Record<string, unknown> = {}) {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {

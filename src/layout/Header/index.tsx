@@ -13,8 +13,8 @@ import ButtonRight from './ButtonRight';
 const useStyles = makeStyles<Theme>((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.palette.type === 'dark' ? '#222' : null,
-      color: theme.palette.type === 'dark' ? theme.palette.text.primary : null,
+      backgroundColor: theme.palette.type === 'dark' ? '#222' : undefined,
+      color: theme.palette.type === 'dark' ? theme.palette.text.primary : undefined,
     },
     title: {
       lineHeight: 1.2,
@@ -31,7 +31,7 @@ interface Props {
   className: string;
   title: string;
   componentViewports: ComponentViewports;
-  toggleDrawer?: () => any;
+  toggleDrawer?: () => void;
 }
 
 function Header({ className, title, componentViewports, toggleDrawer }: Props) {

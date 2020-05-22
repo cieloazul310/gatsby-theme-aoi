@@ -5,6 +5,7 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import Drawer from '@material-ui/core/Drawer';
 import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 // layout components are enable to override from your project
 // https://www.gatsbyjs.org/docs/themes/shadowing/
@@ -46,8 +47,18 @@ interface StylesProps {
 const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
   createStyles({
     header: {
-      zIndex: theme.zIndex.drawer + 1,
+      zIndex: theme.zIndex.drawer + 2,
       width: '100%',
+    },
+    progress: {
+      position: 'fixed',
+      top: theme.mixins.toolbar.minHeight,
+      [theme.breakpoints.up('sm')]: {
+        top: 64,
+      },
+      left: 0,
+      width: '100%',
+      zIndex: theme.zIndex.drawer + 1,
     },
     drawer: ({ viewports, drawerWidth }) =>
       permanentDrawerStyles(viewports.PermanentDrawer, theme, drawerWidth, {
@@ -82,6 +93,7 @@ export interface LayoutProps extends ContainerProps {
   description?: string;
   keywords?: string[];
   image?: string;
+  loading?: boolean;
   disablePaddingTop?: boolean;
   componentViewports?: Partial<ComponentViewports>;
   drawerWidth?: number;
@@ -105,6 +117,7 @@ function Layout({
   fab,
   componentViewports,
   tabSticky = false,
+  loading = false,
   drawerWidth = 280,
   ...options
 }: LayoutProps) {
@@ -149,6 +162,7 @@ function Layout({
   return (
     <Box display="flex" width="100%" maxWidth="100%">
       <SEO title={title} description={description} keywords={keywords} image={image} />
+      {loading ? <LinearProgress className={classes.progress} color="secondary" /> : null}
       <Header className={classes.header} title={title} toggleDrawer={_toggleDrawer} componentViewports={viewports} />
       {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
       <div className={classes.main}>
