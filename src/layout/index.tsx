@@ -60,7 +60,7 @@ const useStyles = makeStyles<Theme, StylesProps>((theme: Theme) =>
       width: '100%',
       zIndex: theme.zIndex.drawer + 1,
     },
-    drawer: ({ viewports, drawerWidth }) =>
+    drawer: ({ viewports, drawerWidth }: StylesProps) =>
       permanentDrawerStyles(viewports.PermanentDrawer, theme, drawerWidth, {
         flexShrink: 0,
       }),

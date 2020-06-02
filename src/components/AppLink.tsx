@@ -1,3 +1,4 @@
+/* eslint @typescript-eslint/no-explicit-any: "off" */
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
 import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
@@ -7,7 +8,7 @@ import clsx from 'clsx';
 
 type GatsbyLinkComposedProps<T = Record<string, unknown>> = Omit<GatsbyLinkProps<T>, 'ref'>;
 
-const GatsbyLinkComposed = React.forwardRef<unknown, GatsbyLinkComposedProps>((props, ref) => {
+const GatsbyLinkComposed = React.forwardRef<any, GatsbyLinkComposedProps>((props, ref) => {
   const { to, state, ...other } = props;
   return <GatsbyLink to={to} state={state} ref={ref} {...other} />;
 });

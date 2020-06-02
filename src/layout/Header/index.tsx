@@ -34,7 +34,14 @@ interface Props {
   toggleDrawer?: () => void;
 }
 
-function Header({ className, title, componentViewports, toggleDrawer }: Props) {
+function Header({
+  className,
+  title,
+  componentViewports,
+  toggleDrawer = () => {
+    // do nothing
+  },
+}: Props) {
   const classes = useStyles();
   const siteMetadata = useSiteMetadata();
   return (
