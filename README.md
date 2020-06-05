@@ -1,5 +1,7 @@
 # Gatsby Theme Aoi
 
+[![npm version](https://badge.fury.io/js/gatsby-theme-aoi.svg)](https://badge.fury.io/js/gatsby-theme-aoi)
+
 > A [Gatsby] theme for TypeScript-based Gatsby projects Material-UI.
 
 DEMO: <https://cieloazul310.github.io/gatsby-starter-aoi-theme/>
@@ -349,5 +351,5 @@ export default function reducer(state: AppState, action: Action): AppState {
 
 [gatsby]: https://www.gatsbyjs.org/ 'Gatsby'
 [gatsby-theme-aoi-top-layout]: https://github.com/cieloazul310/gatsby-theme-aoi-top-layout/ 'Gatsby Theme Aoi Top Layout'
-[gatsby-starter-aoi-theme]: https://github.com/cieloazul310/gatsby-theme-aoi/ 'Gatsby Starter Aoi Theme'
+[gatsby-starter-aoi-theme]: https://github.com/cieloazul310/gatsby-starter-aoi-theme/ 'Gatsby Starter Aoi Theme'
 [gatsby-starter-aoi]: https://github.com/cieloazul310/gatsby-starter-aoi/ 'Gatsby Starter Aoi'

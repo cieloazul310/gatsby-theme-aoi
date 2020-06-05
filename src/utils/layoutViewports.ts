@@ -43,11 +43,8 @@ export function mergeViewports(componentViewports: Partial<ComponentViewports>):
     } else {
       const viewports = componentViewports[key];
       if (viewports === undefined) return defaultComponentViewports[key];
-      if (typeof viewports === 'boolean') {
-        return viewports ? 'xsUp' : 'xsDown';
-      } else {
-        return viewports;
-      }
+
+      return viewports;
     }
   }
 }
