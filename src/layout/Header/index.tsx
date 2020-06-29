@@ -29,7 +29,7 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
 
 interface Props {
   className: string;
-  title: string;
+  title?: string;
   componentViewports: ComponentViewports;
   toggleDrawer?: () => void;
 }
@@ -50,7 +50,7 @@ function Header({
         <ButtonLeft componentViewports={componentViewports} toggleDrawer={toggleDrawer} />
         <Box flex="1" px={1}>
           <Typography className={classes.title} variant="h6" component="h1" color="inherit">
-            {title || siteMetadata.title}
+            {title ?? siteMetadata.title}
           </Typography>
         </Box>
         <ButtonRight title={title} />

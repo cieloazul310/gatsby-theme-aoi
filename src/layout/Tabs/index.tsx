@@ -7,16 +7,16 @@ interface StyleProps {
 
 const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
   createStyles({
-    root: ({ tabSticky }) => ({
-      position: tabSticky ? 'sticky' : null,
-      top: tabSticky ? 56 : null,
-      backgroundColor: tabSticky ? theme.palette.background.default : null,
-      zIndex: tabSticky ? theme.zIndex.mobileStepper : null,
-      boxShadow: tabSticky ? theme.shadows[1] : null,
+    root: {
+      position: ({ tabSticky }) => (tabSticky ? 'sticky' : undefined),
+      top: ({ tabSticky }) => (tabSticky ? 56 : undefined),
+      backgroundColor: ({ tabSticky }) => (tabSticky ? theme.palette.background.default : undefined),
+      zIndex: ({ tabSticky }) => (tabSticky ? theme.zIndex.mobileStepper : undefined),
+      boxShadow: ({ tabSticky }) => (tabSticky ? theme.shadows[1] : undefined),
       [theme.breakpoints.up('sm')]: {
-        top: tabSticky ? 64 : null,
+        top: ({ tabSticky }) => (tabSticky ? 64 : undefined),
       },
-    }),
+    },
   })
 );
 
