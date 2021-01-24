@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../graphql-hooks';
+import { useBaseUrl } from '../../utils/useBaseUrl';
 
 interface Props {
   title?: string;
@@ -11,11 +12,12 @@ interface Props {
 
 function SEO({ title, description, keywords, image }: Props) {
   const siteMetadata = useSiteMetadata();
+  const baseUrl = useBaseUrl();
   const images = image
     ? [
         {
           name: 'og:image',
-          content: `${siteMetadata.siteUrl}${image}`,
+          content: `${baseUrl}${image}`,
         },
       ]
     : [];
