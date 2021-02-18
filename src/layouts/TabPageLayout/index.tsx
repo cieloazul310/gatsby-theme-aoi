@@ -5,12 +5,8 @@ interface Props extends LayoutProps {
   tabSticky?: boolean;
 }
 
-function TabPageLayout({ children, maxWidth = 'xl', disablePaddingTop = true, disableGutters = true, ...props }: Props) {
-  return (
-    <Layout maxWidth={maxWidth} disablePaddingTop={disablePaddingTop} disableGutters={disableGutters} {...props}>
-      {children}
-    </Layout>
-  );
+function TabPageLayout({ children, ...props }: Props): JSX.Element {
+  return <Layout {...props}>{children}</Layout>;
 }
 
 export default TabPageLayout;

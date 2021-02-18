@@ -7,13 +7,13 @@ import Home from '@material-ui/icons/Home';
 import MusicNote from '@material-ui/icons/MusicNote';
 import { useLocation } from '@reach/router';
 
-function BottomNav() {
+function BottomNav(): JSX.Element {
   const { pathname } = useLocation();
-  const _onChange = (event: React.ChangeEvent<Record<string, unknown>>, value: string) => {
+  const onChange = (event: React.ChangeEvent<Record<string, unknown>>, value: string) => {
     navigate(value.replace(withPrefix('/'), '/'));
   };
   return (
-    <BottomNavigation value={pathname} onChange={_onChange} showLabels>
+    <BottomNavigation value={pathname} onChange={onChange} showLabels>
       <BottomNavigationAction label="Top" value={withPrefix('/')} icon={<Home />} />
       <BottomNavigationAction label="page2" value={withPrefix('/page-2/')} icon={<MusicNote />} />
     </BottomNavigation>

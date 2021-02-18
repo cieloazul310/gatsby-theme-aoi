@@ -4,7 +4,7 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import ListItemToggleDarkMode, { ListItemToggleUseSystemTheme } from '../../components/ListItemToggleDarkMode';
 import { useSiteMetadata } from '../../graphql-hooks';
 
-function StateHandler() {
+function StateHandler(): JSX.Element {
   const { lang } = useSiteMetadata();
   return (
     <List subheader={<ListSubheader>State Handler</ListSubheader>}>

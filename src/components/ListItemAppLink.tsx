@@ -16,7 +16,7 @@ interface ListItemAppLinkPropsBase {
 
 export type ListItemAppLinkProps = ListItemAppLinkPropsBase & GatsbyLinkComposedProps & Omit<ListItemProps, 'ref'>;
 
-export function ListItemAppLink(props: ListItemAppLinkProps) {
+function ListItemAppLink(props: ListItemAppLinkProps): JSX.Element {
   const { className, innerRef, naked, to, button, ...other } = props;
 
   if (naked) {

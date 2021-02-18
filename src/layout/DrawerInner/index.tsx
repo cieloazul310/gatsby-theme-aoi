@@ -27,11 +27,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 interface Props {
   handleDrawer: () => void;
-  contents?: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  contents?: React.ReactNode;
   title?: string;
 }
 
-function DrawerInner({ handleDrawer, contents, title }: Props) {
+function DrawerInner({ handleDrawer, contents, title }: Props): JSX.Element {
   const classes = useStyles();
   return (
     <div>
@@ -55,5 +55,10 @@ function DrawerInner({ handleDrawer, contents, title }: Props) {
     </div>
   );
 }
+
+DrawerInner.defaultProps = {
+  contents: undefined,
+  title: undefined,
+};
 
 export default DrawerInner;

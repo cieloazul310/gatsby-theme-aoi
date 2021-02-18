@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet';
 import { useSiteMetadata } from '../../graphql-hooks';
-import { useBaseUrl } from '../../utils/useBaseUrl';
+import useBaseUrl from '../../utils/useBaseUrl';
 
 interface Props {
   title?: string;
@@ -10,7 +10,7 @@ interface Props {
   image?: string;
 }
 
-function SEO({ title, description, keywords, image }: Props) {
+function SEO({ title, description, keywords, image }: Props): JSX.Element {
   const siteMetadata = useSiteMetadata();
   const baseUrl = useBaseUrl();
   const images = image
@@ -62,5 +62,12 @@ function SEO({ title, description, keywords, image }: Props) {
     />
   );
 }
+
+SEO.defaultProps = {
+  title: undefined,
+  description: undefined,
+  keywords: undefined,
+  image: undefined,
+};
 
 export default SEO;

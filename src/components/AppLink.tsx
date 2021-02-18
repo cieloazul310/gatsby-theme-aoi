@@ -20,7 +20,7 @@ interface LinkPropsBase {
 
 export type AppLinkProps = LinkPropsBase & GatsbyLinkComposedProps & Omit<MuiLinkProps, 'href'>;
 
-export function AppLink(props: AppLinkProps) {
+function AppLink(props: AppLinkProps): JSX.Element {
   const {
     activeClassName = 'active',
     className: classNameProps,
@@ -53,7 +53,7 @@ interface ButtonPropsBase {
 
 export type AppLinkButtonProps = ButtonPropsBase & GatsbyLinkComposedProps & Omit<ButtonProps, 'href'>;
 
-export function AppLinkButton(props: AppLinkButtonProps) {
+export function AppLinkButton(props: AppLinkButtonProps): JSX.Element {
   const { className, color = 'secondary', innerRef, to, ...other } = props;
 
   return <Button component={GatsbyLinkComposed} className={className} to={to} ref={innerRef} color={color} {...other} />;

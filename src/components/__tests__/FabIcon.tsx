@@ -13,7 +13,7 @@ describe('FabIcon', () => {
     expect(tree).toMatchSnapshot();
   });
   it('default vertical', () => {
-    const tree = renderer.create(<FabIcon icon={faTwitter} defaultVertical={true} />).toJSON();
+    const tree = renderer.create(<FabIcon icon={faTwitter} defaultVertical />).toJSON();
     expect(tree).toMatchSnapshot();
   });
   it('disable default vertical', () => {

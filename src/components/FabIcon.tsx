@@ -8,7 +8,14 @@ interface Props extends IconProps {
   defaultVertical?: boolean;
 }
 
-function FabIcon({ icon, defaultVertical, ...options }: Props) {
+// helpers
+function sizeToFontSize(fontSize: 'inherit' | 'default' | 'small' | 'large' | undefined): number {
+  if (fontSize === 'small') return 20;
+  if (fontSize === 'large') return 36;
+  return 24;
+}
+
+function FabIcon({ icon, defaultVertical, ...options }: Props): JSX.Element {
   const [width] = icon.icon;
   const dy = width > 512 ? (512 - width) / 2 : 0;
   return (
@@ -24,9 +31,8 @@ function FabIcon({ icon, defaultVertical, ...options }: Props) {
   );
 }
 
-export default FabIcon;
+FabIcon.defaultProps = {
+  defaultVertical: undefined,
+};
 
-// helpers
-function sizeToFontSize(fontSize: 'inherit' | 'default' | 'small' | 'large' | undefined): number {
-  return fontSize === 'small' ? 20 : fontSize === 'large' ? 36 : 24;
-}
+export default FabIcon;

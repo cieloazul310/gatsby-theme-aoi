@@ -7,17 +7,17 @@ import Switch from '@material-ui/core/Switch';
 import Bright4Icon from '@material-ui/icons/Brightness4';
 import Bright5Icon from '@material-ui/icons/Brightness5';
 import { useTheme } from '@material-ui/core/styles';
-import useUpdateOnClient from '../utils/useUpdateOnClient';
 import { useThemeContextState, useToggleDark, useToggleUseSystem } from 'gatsby-theme-aoi-top-layout/src/utils/ThemeStateContext';
+import useUpdateOnClient from '../utils/useUpdateOnClient';
 
 interface Props {
   label?: string;
 }
 
-function ListItemToggleDarkMode({ label = 'Dark Mode' }: Props) {
+function ListItemToggleDarkMode({ label = 'Dark Mode' }: Props): JSX.Element {
   const isClient = useUpdateOnClient();
   const { darkMode, useSystemTheme } = useThemeContextState();
-  const _toggleDark = useToggleDark();
+  const toggleDark = useToggleDark();
   return (
     <ListItem disabled={useSystemTheme}>
       <ListItemIcon key={isClient}>{darkMode ? <Bright4Icon /> : <Bright5Icon />}</ListItemIcon>
@@ -27,7 +27,7 @@ function ListItemToggleDarkMode({ label = 'Dark Mode' }: Props) {
           disabled={useSystemTheme}
           key={isClient}
           edge="end"
-          onChange={_toggleDark}
+          onChange={toggleDark}
           checked={darkMode}
           inputProps={{ 'aria-labelledby': 'switch-list-label-darkmode' }}
         />
@@ -36,13 +36,17 @@ function ListItemToggleDarkMode({ label = 'Dark Mode' }: Props) {
   );
 }
 
+ListItemToggleDarkMode.defaultProps = {
+  label: 'Dark Mode',
+};
+
 export default ListItemToggleDarkMode;
 
-export function ListItemToggleUseSystemTheme({ label = 'Auto Dark Mode' }: Props) {
+export function ListItemToggleUseSystemTheme({ label = 'Auto Dark Mode' }: Props): JSX.Element {
   const isClient = useUpdateOnClient();
   const paletteType = useTheme().palette.type;
   const { useSystemTheme } = useThemeContextState();
-  const _toggleUseSystemTheme = useToggleUseSystem();
+  const toggleUseSystemTheme = useToggleUseSystem();
   return (
     <ListItem>
       <ListItemIcon key={isClient}>
@@ -57,7 +61,7 @@ export function ListItemToggleUseSystemTheme({ label = 'Auto Dark Mode' }: Props
         <Switch
           edge="end"
           key={isClient}
-          onChange={_toggleUseSystemTheme}
+          onChange={toggleUseSystemTheme}
           checked={useSystemTheme}
           inputProps={{ 'aria-labelledby': 'switch-list-label-use-your-system-theme' }}
         />
@@ -65,3 +69,7 @@ export function ListItemToggleUseSystemTheme({ label = 'Auto Dark Mode' }: Props
     </ListItem>
   );
 }
+
+ListItemToggleUseSystemTheme.defaultProps = {
+  label: 'Auto Dark Mode',
+};

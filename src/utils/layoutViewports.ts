@@ -4,7 +4,6 @@ import { HiddenProps } from '@material-ui/core/Hidden';
 import { CSSProperties, CreateCSSProperties } from '@material-ui/core/styles/withStyles';
 
 const breakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl'];
-
 export type Viewport = 'xsDown' | 'xsUp' | 'smDown' | 'smUp' | 'mdDown' | 'mdUp' | 'lgDown' | 'lgUp' | 'xlDown' | 'xlUp';
 export type ViewDirection = 'Up' | 'Down';
 export type Viewports = Viewport | boolean;
@@ -23,7 +22,47 @@ export const defaultComponentViewports: ComponentViewports = {
   Fab: 'smDown',
 };
 
-export function viewportsHelper(componentViewPorts: Partial<ComponentViewports>) {
+function isBreakpoint(breakpoint: string | Breakpoint): breakpoint is Breakpoint {
+  return breakpoint === 'xs' || breakpoint === 'sm' || breakpoint === 'md' || breakpoint === 'lg' || breakpoint === 'xl';
+}
+
+function breakpointSlicer(viewports: Viewport): Breakpoint {
+  const breakpoint = viewports.slice(0, 2);
+  if (!isBreakpoint(breakpoint)) throw new Error();
+  return breakpoint;
+}
+
+function isDirection(direction: string | ViewDirection): direction is ViewDirection {
+  return direction === 'Up' || direction === 'Down';
+}
+
+function directionSlicer(viewports: Viewport): ViewDirection {
+  const direction = viewports.slice(2);
+  if (!isDirection(direction)) throw new Error();
+  return direction;
+}
+
+function isViewport(viewport: string | Viewport): viewport is Viewport {
+  return (
+    viewport === 'xsDown' ||
+    viewport === 'xsUp' ||
+    viewport === 'smDown' ||
+    viewport === 'smUp' ||
+    viewport === 'mdDown' ||
+    viewport === 'mdUp' ||
+    viewport === 'lgUp' ||
+    viewport === 'lgDown' ||
+    viewport === 'xlUp' ||
+    viewport === 'xlDown'
+  );
+}
+
+function checkIsViewport(str: string): Viewport {
+  if (!isViewport(str)) throw new Error();
+  return str;
+}
+
+export function viewportsHelper(componentViewPorts: Partial<ComponentViewports>): Partial<ComponentViewports> {
   return componentViewPorts;
 }
 
@@ -53,9 +92,8 @@ export function viewportsToHidden(viewports: Viewports): HiddenProps {
   const index = breakpoints.indexOf(breakpoint);
   if (direction === 'Up') {
     return { [checkIsViewport(`${breakpoints[index - 1]}Down`)]: true };
-  } else {
-    return { [checkIsViewport(`${breakpoints[index + 1]}Up`)]: true };
   }
+  return { [checkIsViewport(`${breakpoints[index + 1]}Up`)]: true };
 }
 
 /**
@@ -65,15 +103,17 @@ export function viewportsToHidden(viewports: Viewports): HiddenProps {
  *
  */
 
-export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: Theme, drawerWidth: number, styles: CSSProperties = {}) {
+export function contentWidthStyles(
+  permanentDrawerViewports: Viewports,
+  theme: Theme,
+  drawerWidth: number
+): CSSProperties | CreateCSSProperties<StylesProps> {
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
-      ...styles,
       width: `calc(100% - ${drawerWidth}px)`,
     };
   if (permanentDrawerViewports === false)
     return {
-      ...styles,
       width: '100%',
     };
 
@@ -81,7 +121,6 @@ export function contentWidthStyles(permanentDrawerViewports: Viewports, theme: T
   const direction = directionSlicer(permanentDrawerViewports) === 'Up' ? 'up' : 'down';
 
   return {
-    ...styles,
     width: '100%',
     [theme.breakpoints[direction](breakpoint)]: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -97,97 +136,60 @@ interface StylesProps {
 export function permanentDrawerStyles(
   permanentDrawerViewports: Viewports,
   theme: Theme,
-  drawerWidth: number,
-  styles: CSSProperties | CreateCSSProperties<StylesProps> = {}
-) {
+  drawerWidth: number
+): CSSProperties | CreateCSSProperties<StylesProps> {
   // ex. "mdUp"
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
-      ...styles,
       width: drawerWidth,
     };
   if (permanentDrawerViewports === false)
     return {
-      ...styles,
       width: 0,
     };
 
-  const breakpoint: Breakpoint = breakpointSlicer(permanentDrawerViewports);
+  const breakpoint = breakpointSlicer(permanentDrawerViewports);
   const direction = directionSlicer(permanentDrawerViewports) === 'Up' ? 'up' : 'down';
 
   return {
-    ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
       width: drawerWidth,
     },
-  } as CreateCSSProperties<StylesProps>;
+  };
 }
 
-export function mainStyles(bottomNavViewports: Viewports, theme: Theme, styles: CSSProperties | CreateCSSProperties<StylesProps> = {}) {
+export function mainStyles(bottomNavViewports: Viewports, theme: Theme): CSSProperties | CreateCSSProperties<StylesProps> {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
-      ...styles,
       paddingBottom: 56,
-    } as CreateCSSProperties<StylesProps>;
-  if (bottomNavViewports === false) return styles as CreateCSSProperties<StylesProps>;
+    };
+  if (bottomNavViewports === false) return {};
 
-  const breakpoint: Breakpoint = breakpointSlicer(bottomNavViewports);
+  const breakpoint = breakpointSlicer(bottomNavViewports);
   const direction = directionSlicer(bottomNavViewports) === 'Up' ? 'up' : 'down';
 
   return {
-    ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
       paddingBottom: 56,
     },
-  } as CreateCSSProperties<StylesProps>;
+  };
 }
 
-export function fabStyles(bottomNavViewports: Viewports, theme: Theme, styles: CSSProperties | CreateCSSProperties<StylesProps> = {}) {
+export function fabStyles(bottomNavViewports: Viewports, theme: Theme): CSSProperties | CreateCSSProperties<StylesProps> {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
-      ...styles,
       paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
-    } as CreateCSSProperties<StylesProps>;
-  if (bottomNavViewports === false) return styles as CreateCSSProperties<StylesProps>;
+    };
+  if (bottomNavViewports === false) return {};
 
-  const breakpoint: Breakpoint = breakpointSlicer(bottomNavViewports);
+  const breakpoint = breakpointSlicer(bottomNavViewports);
   const direction = directionSlicer(bottomNavViewports) === 'Up' ? 'up' : 'down';
 
   return {
-    ...styles,
     [theme.breakpoints[direction](breakpoint)]: {
       paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
     },
-  } as CreateCSSProperties<StylesProps>;
-}
-
-function breakpointSlicer(viewports: Viewport): Breakpoint {
-  const breakpoint = viewports.slice(0, 2);
-  if (breakpoint === 'xs' || breakpoint === 'sm' || breakpoint === 'md' || breakpoint === 'lg' || breakpoint === 'xl')
-    return breakpoint as Breakpoint;
-  throw new Error();
-}
-function directionSlicer(viewports: Viewport): ViewDirection {
-  const direction = viewports.slice(2);
-  if (direction === 'Up' || direction === 'Down') return direction as ViewDirection;
-  throw new Error();
-}
-
-function checkIsViewport(str: string): Viewport {
-  if (
-    str === 'xsDown' ||
-    str === 'xsUp' ||
-    str === 'smDown' ||
-    str === 'smUp' ||
-    str === 'mdDown' ||
-    str === 'mdUp' ||
-    str === 'lgUp' ||
-    str === 'lgDown' ||
-    str === 'xlUp' ||
-    str === 'xlDown'
-  )
-    return str;
-  throw new Error();
+  };
 }

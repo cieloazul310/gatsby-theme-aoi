@@ -10,24 +10,24 @@ export interface UseSiteMetadataQuery {
       lang: string;
       siteUrl: string;
       social: {
-        mail: string;
-        twitter: string;
-        github: string;
-        facebook: string;
-        gitlab: string;
-        linkedin: string;
-        medium: string;
-        pocket: string;
-        tumblr: string;
-        instagram: string;
-        vimeo: string;
-        youtube: string;
+        mail: string | null;
+        twitter: string | null;
+        github: string | null;
+        facebook: string | null;
+        gitlab: string | null;
+        linkedin: string | null;
+        medium: string | null;
+        pocket: string | null;
+        tumblr: string | null;
+        instagram: string | null;
+        vimeo: string | null;
+        youtube: string | null;
       };
     };
   };
 }
 
-export function useSiteMetadata() {
+export function useSiteMetadata(): UseSiteMetadataQuery['site']['siteMetadata'] {
   const { site } = useStaticQuery<UseSiteMetadataQuery>(graphql`
     query SiteMetadata {
       site {

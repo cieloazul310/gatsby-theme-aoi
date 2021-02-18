@@ -13,7 +13,7 @@ function FloationActionButton({
   onClick = () => {
     // do nothing
   },
-}: Props) {
+}: Props): JSX.Element {
   return (
     <Tooltip title="Menu" placement="top">
       <Fab className={className} onClick={onClick} color="secondary">
@@ -22,5 +22,12 @@ function FloationActionButton({
     </Tooltip>
   );
 }
+
+FloationActionButton.defaultProps = {
+  className: undefined,
+  onClick: () => {
+    // do nothing
+  },
+};
 
 export default FloationActionButton;

@@ -7,10 +7,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 // icons
 import HomeIcon from '@material-ui/icons/Home';
 import SportsHandballIcon from '@material-ui/icons/SportsHandball';
-import ListItemAppLink from '../../components/ListItemAppLink';
 import { useLocation } from '@reach/router';
+import ListItemAppLink from '../../components/ListItemAppLink';
 
-function Contents() {
+function Contents(): JSX.Element {
   const { pathname } = useLocation();
   return (
     <List subheader={<ListSubheader>Contents</ListSubheader>} role="menu">

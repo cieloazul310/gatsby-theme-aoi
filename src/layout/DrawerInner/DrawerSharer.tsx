@@ -17,7 +17,7 @@ interface Props {
   title?: string;
 }
 
-function DrawerSharer({ title }: Props) {
+function DrawerSharer({ title }: Props): JSX.Element {
   const isClient = useUpdateOnClint();
   const { lang } = useSiteMetadata();
   const twitterUrl = useSocialShare('twitter', title);
@@ -46,5 +46,9 @@ function DrawerSharer({ title }: Props) {
     </List>
   );
 }
+
+DrawerSharer.defaultProps = {
+  title: undefined,
+};
 
 export default DrawerSharer;

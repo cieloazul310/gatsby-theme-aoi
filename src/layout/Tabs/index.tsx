@@ -21,11 +21,11 @@ const useStyles = makeStyles<Theme, StyleProps>((theme: Theme) =>
 );
 
 interface Props {
-  children: JSX.Element | JSX.Element[] | (JSX.Element | JSX.Element[])[];
+  children: React.ReactNode;
   tabSticky?: boolean;
 }
 
-function Tabs({ children, tabSticky = false }: Props) {
+function Tabs({ children, tabSticky = false }: Props): JSX.Element {
   const classes = useStyles({ tabSticky });
   return (
     <div className={classes.root}>

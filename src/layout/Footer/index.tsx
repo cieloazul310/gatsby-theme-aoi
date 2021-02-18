@@ -1,16 +1,25 @@
 import * as React from 'react';
-import Box from '@material-ui/core/Box';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 import Socials from './Socials';
 import Copyrights from './Copyrights';
 
-function Footer() {
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      padding: theme.spacing(2, 0),
+    },
+  })
+);
+
+function Footer(): JSX.Element {
+  const classes = useStyles();
   return (
     <footer>
-      <Box px={2} py={4} textAlign="center">
+      <div className={classes.root}>
         <Socials />
         <Copyrights />
-      </Box>
+      </div>
     </footer>
   );
 }

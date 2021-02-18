@@ -1,13 +1,13 @@
 import * as React from 'react';
-import Layout, { LayoutProps, viewportsHelper } from '../../layout';
+import Layout, { LayoutProps } from '../../layout';
 
-function FullWidthLayout({ children, componentViewports, ...props }: LayoutProps) {
-  const fullWidthViewports = viewportsHelper({
+function FullWidthLayout({ children, componentViewports, ...props }: LayoutProps): JSX.Element {
+  const fullWidthViewports = {
     ...componentViewports,
     SwipeableDrawer: true,
     PermanentDrawer: false,
     Fab: true,
-  });
+  };
   return (
     <Layout componentViewports={fullWidthViewports} {...props}>
       {children}
