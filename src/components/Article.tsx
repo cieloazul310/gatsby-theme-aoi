@@ -51,7 +51,7 @@ export function ArticleSection({ children }: Props): JSX.Element {
 export function ArticleTitle({ children }: Props): JSX.Element {
   const classes = useStyles();
   return (
-    <Typography className={classes.h2} variant="h6" component="h2" align="center">
+    <Typography className={classes.h2} variant="h5" component="h2" align="center">
       {children}
     </Typography>
   );
@@ -59,7 +59,7 @@ export function ArticleTitle({ children }: Props): JSX.Element {
 
 export function Paragraph({ children }: Props): JSX.Element {
   return (
-    <Typography variant="body2" paragraph>
+    <Typography variant="body1" paragraph>
       {children}
     </Typography>
   );
@@ -67,7 +67,7 @@ export function Paragraph({ children }: Props): JSX.Element {
 
 export function H3({ children }: Props): JSX.Element {
   return (
-    <Typography variant="subtitle1" component="h3" gutterBottom>
+    <Typography variant="h6" component="h3" gutterBottom>
       {children}
     </Typography>
   );
@@ -76,7 +76,7 @@ export function H3({ children }: Props): JSX.Element {
 export function H4({ children }: Props): JSX.Element {
   const classes = useStyles();
   return (
-    <Typography className={classes.h4} variant="body2" component="h4" gutterBottom>
+    <Typography className={classes.h4} variant="body1" component="h4" gutterBottom>
       {children}
     </Typography>
   );

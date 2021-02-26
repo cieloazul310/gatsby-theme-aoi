@@ -11,17 +11,17 @@ interface Props {
   toggleDrawer: () => void;
 }
 
-function ButtonLeft({ toggleDrawer, componentViewports: { SwipeableDrawer, PermanentDrawer } }: Props) {
+function ButtonLeft({ toggleDrawer, componentViewports: { SwipeableDrawer, PermanentDrawer } }: Props): JSX.Element {
   const showMenuButton = SwipeableDrawer !== false && PermanentDrawer === false;
-  const _onBackButtonClick = (event: React.MouseEvent) => {
+  const onBackButtonClick = (event: React.MouseEvent) => {
     event.preventDefault();
-    if (window) window.history.back();
+    if (typeof window === 'object') window.history.back();
   };
   return (
     <>
       <Hidden mdUp implementation="css">
         <Tooltip title="Back">
-          <IconButton color="inherit" onClick={_onBackButtonClick} edge="start" aria-label="Get back to where you once belonged">
+          <IconButton color="inherit" onClick={onBackButtonClick} edge="start" aria-label="Get back to where you once belonged">
             <ArrowBackIosIcon />
           </IconButton>
         </Tooltip>

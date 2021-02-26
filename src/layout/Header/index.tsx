@@ -2,7 +2,6 @@ import * as React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import clsx from 'clsx';
 import { ComponentViewports } from '../../utils/layoutViewports';
@@ -17,6 +16,8 @@ const useStyles = makeStyles<Theme>((theme: Theme) =>
       color: theme.palette.type === 'dark' ? theme.palette.text.primary : undefined,
     },
     title: {
+      flexGrow: 1,
+      padding: theme.spacing(0, 1),
       lineHeight: 1.2,
       display: 'flex',
       justifyContent: 'start',
@@ -41,22 +42,27 @@ function Header({
   toggleDrawer = () => {
     // do nothing
   },
-}: Props) {
+}: Props): JSX.Element {
   const classes = useStyles();
   const siteMetadata = useSiteMetadata();
   return (
     <AppBar className={clsx(className, classes.root)}>
       <Toolbar>
         <ButtonLeft componentViewports={componentViewports} toggleDrawer={toggleDrawer} />
-        <Box flex="1" px={1}>
-          <Typography className={classes.title} variant="h6" component="h1" color="inherit">
-            {title ?? siteMetadata.title}
-          </Typography>
-        </Box>
+        <Typography className={classes.title} variant="h6" component="h1" color="inherit">
+          {title ?? siteMetadata.title}
+        </Typography>
         <ButtonRight title={title} />
       </Toolbar>
     </AppBar>
   );
 }
+
+Header.defaultProps = {
+  title: undefined,
+  toggleDrawer: () => {
+    // do nothing
+  },
+};
 
 export default Header;

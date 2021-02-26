@@ -103,7 +103,6 @@ export interface LayoutProps {
   componentViewports?: Partial<ComponentViewports>;
   drawerWidth?: number;
   tabSticky?: boolean;
-  jumbotron?: React.ReactNode;
   drawerContents?: React.ReactNode;
   tabs?: React.ReactNode;
   bottomNavigation?: React.ReactNode;
@@ -120,7 +119,6 @@ function Layout({
   drawerContents,
   bottomNavigation,
   fab,
-  jumbotron,
   componentViewports,
   tabSticky = false,
   loading = false,
@@ -176,7 +174,6 @@ function Layout({
       {viewports.SwipeableDrawer || viewports.PermanentDrawer ? drawer : null}
       <div className={classes.main}>
         {tabs ? <Tabs tabSticky={tabSticky}>{tabs}</Tabs> : null}
-        {jumbotron ?? null}
         <main>{children}</main>
         <Footer />
       </div>
