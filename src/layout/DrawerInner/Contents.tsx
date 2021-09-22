@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { withPrefix } from 'gatsby';
-import List from '@material-ui/core/List';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 // icons
-import HomeIcon from '@material-ui/icons/Home';
-import SportsHandballIcon from '@material-ui/icons/SportsHandball';
+import HomeIcon from '@mui/icons-material/Home';
+import SportsHandballIcon from '@mui/icons-material/SportsHandball';
+
 import { useLocation } from '@reach/router';
 import ListItemAppLink from '../../components/ListItemAppLink';
 

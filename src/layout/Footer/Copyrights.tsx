@@ -1,28 +1,31 @@
 import * as React from 'react';
-import Typography from '@material-ui/core/Typography';
-import MuiLink from '@material-ui/core/Link';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import MuiLink from '@mui/material/Link';
 import { useSiteMetadata } from '../../graphql-hooks';
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    content: {
-      padding: theme.spacing(1),
-      display: 'flex',
-      justifyContent: 'center',
-    },
-  })
-);
+function CopyrightsContent({ children }: { children: React.ReactNode }) {
+  return (
+    <Box
+      sx={{
+        padding: 1,
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
+      {children}
+    </Box>
+  );
+}
 
 function Copyrights(): JSX.Element {
-  const classes = useStyles();
   const { title, author } = useSiteMetadata();
   return (
     <div>
-      <div className={classes.content}>
+      <CopyrightsContent>
         <Typography variant="body1">{title}</Typography>
-      </div>
-      <div className={classes.content}>
+      </CopyrightsContent>
+      <CopyrightsContent>
         <Typography variant="body2" component="small">
           © {new Date().getFullYear()} {author} All rights reserved. Built with
           {` `}
@@ -30,7 +33,7 @@ function Copyrights(): JSX.Element {
             Gatsby
           </MuiLink>
         </Typography>
-      </div>
+      </CopyrightsContent>
     </div>
   );
 }

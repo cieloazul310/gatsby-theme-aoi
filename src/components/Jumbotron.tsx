@@ -1,46 +1,8 @@
 import * as React from 'react';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-
-interface StylesProps {
-  bgImage?: string;
-}
-
-const useStyles = makeStyles<Theme, StylesProps>((theme) =>
-  createStyles({
-    root: {
-      height: 240,
-      display: 'flex',
-      justifyContent: 'center',
-      position: 'relative',
-      overflow: 'hidden',
-      background: theme.palette.type === 'light' ? theme.palette.secondary.light : theme.palette.grey[700],
-    },
-    bgImage: {
-      position: 'absolute',
-      top: 0,
-      left: 0,
-      width: '100%',
-      height: '100%',
-      background: ({ bgImage }) => (bgImage ? `url(${bgImage}) center / cover` : undefined),
-      filter: 'blur(4px) brightness(0.9)',
-      transform: 'scale(1.1)',
-    },
-    container: {
-      height: 240,
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      zIndex: 1,
-      color: ({ bgImage }) => {
-        if (bgImage || theme.palette.type === 'dark') return theme.palette.common.white;
-        return theme.palette.getContrastText(theme.palette.secondary.light);
-      },
-      textShadow: ({ bgImage }) => (bgImage ? '0 0 4px rgba(0, 0, 0, 0.6)' : undefined),
-    },
-  })
-);
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
+import { useTheme } from '@mui/material/styles';
 
 interface Props {
   title: string;
@@ -48,16 +10,49 @@ interface Props {
 }
 
 function Jumbotron({ title, bgImage }: Props): JSX.Element {
-  const classes = useStyles({ bgImage });
+  const { palette } = useTheme();
   return (
-    <div className={classes.root}>
-      {bgImage ? <div className={classes.bgImage} /> : null}
-      <Container className={classes.container} maxWidth="sm">
+    <Box
+      sx={{
+        height: 240,
+        display: 'flex',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+        bgcolor: palette.mode === 'light' ? 'secondary.light' : palette.grey[700],
+      }}
+    >
+      {bgImage ? (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: bgImage ? `url(${bgImage}) center / cover` : undefined,
+            filter: 'blur(4px) brightness(0.9)',
+            transform: 'scale(1.1)',
+          }}
+        />
+      ) : null}
+      <Container
+        sx={{
+          height: 240,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          zIndex: 1,
+          color: bgImage || palette.mode === 'dark' ? palette.common.white : palette.getContrastText(palette.secondary.light),
+          textShadow: bgImage ? '0 0 4px rgba(0, 0, 0, 0.6)' : undefined,
+        }}
+        maxWidth="sm"
+      >
         <Typography variant="h4" component="h2">
           {title}
         </Typography>
       </Container>
-    </div>
+    </Box>
   );
 }
 

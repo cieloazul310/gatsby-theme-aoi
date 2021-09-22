@@ -1,4 +1,4 @@
-import { mergeViewports, viewportsToHidden } from '../layoutViewports';
+import { mergeViewports, viewportsToSxDisplay } from '../layoutViewports';
 
 describe('mergeViewports', () => {
   it('default component viewports', () => {
@@ -23,6 +23,22 @@ describe('mergeViewports', () => {
   });
 });
 
+describe('viewportsToSxDisplay', () => {
+  it('viewports to sx display', () => {
+    expect(viewportsToSxDisplay('smUp')).toStrictEqual({
+      xs: 'none',
+      sm: 'block',
+    });
+    expect(viewportsToSxDisplay('mdDown')).toStrictEqual({
+      xs: 'block',
+      lg: 'none',
+    });
+    expect(viewportsToSxDisplay(false)).toStrictEqual('none');
+    expect(viewportsToSxDisplay(true)).toStrictEqual('block');
+  });
+});
+
+/*
 describe('viewportsToHidden', () => {
   it('viewports to hidden', () => {
     expect(viewportsToHidden('smUp')).toStrictEqual({
@@ -34,3 +50,4 @@ describe('viewportsToHidden', () => {
     expect(viewportsToHidden(true)).toStrictEqual({});
   });
 });
+*/

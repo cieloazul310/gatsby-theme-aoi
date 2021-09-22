@@ -1,7 +1,7 @@
 import * as React from 'react';
-import Fab from '@material-ui/core/Fab';
-import Tooltip from '@material-ui/core/Tooltip';
-import MenuIcon from '@material-ui/icons/Menu';
+import Fab from '@mui/material/Fab';
+import Tooltip from '@mui/material/Tooltip';
+import MenuIcon from '@mui/icons-material/Menu';
 
 interface Props {
   className?: string;

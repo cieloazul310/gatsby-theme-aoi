@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps } from 'gatsby';
-import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
-import { Theme } from '@material-ui/core/styles';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
+import ListItem, { ListItemProps } from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import { LinkProps as MuiLinkProps } from '@mui/material/Link';
+import { Theme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+
 import AppLink from './AppLink';
 
 type ListItemLinkProps<T = Record<string, unknown>> = Omit<ListItemProps, 'ref'> &
@@ -14,6 +16,7 @@ type ListItemLinkProps<T = Record<string, unknown>> = Omit<ListItemProps, 'ref'>
     to: string;
     primaryText: string;
     secondaryText?: string;
+    button?: boolean;
     inset?: boolean;
     avatar?: JSX.Element;
     secondaryAction?: JSX.Element;

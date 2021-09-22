@@ -1,12 +1,13 @@
 import * as React from 'react';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Switch from '@material-ui/core/Switch';
-import Bright4Icon from '@material-ui/icons/Brightness4';
-import Bright5Icon from '@material-ui/icons/Brightness5';
-import { useTheme } from '@material-ui/core/styles';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction';
+import Switch from '@mui/material/Switch';
+import { useTheme } from '@mui/material/styles';
+import Bright4Icon from '@mui/icons-material/Brightness4';
+import Bright5Icon from '@mui/icons-material/Brightness5';
+
 import { useThemeContextState, useToggleDark, useToggleUseSystem } from 'gatsby-theme-aoi-top-layout/src/utils/ThemeStateContext';
 import useUpdateOnClient from '../utils/useUpdateOnClient';
 
@@ -44,7 +45,7 @@ export default ListItemToggleDarkMode;
 
 export function ListItemToggleUseSystemTheme({ label = 'Auto Dark Mode' }: Props): JSX.Element {
   const isClient = useUpdateOnClient();
-  const paletteType = useTheme().palette.type;
+  const paletteType = useTheme().palette.mode;
   const { useSystemTheme } = useThemeContextState();
   const toggleUseSystemTheme = useToggleUseSystem();
   return (

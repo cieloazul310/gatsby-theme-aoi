@@ -1,9 +1,10 @@
 import * as React from 'react';
-import IconButton, { IconButtonProps } from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import GitHubIcon from '@material-ui/icons/GitHub';
+import IconButton, { IconButtonProps } from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GitHubIcon from '@mui/icons-material/GitHub';
+
 import { useSiteMetadata } from '../../graphql-hooks';
 import useSocialShare from '../../utils/useSocialShare';
 import useUpdateOnClient from '../../utils/useUpdateOnClient';

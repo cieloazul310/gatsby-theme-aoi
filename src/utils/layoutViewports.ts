@@ -1,7 +1,5 @@
-import { Theme } from '@material-ui/core/styles';
-import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
-import { HiddenProps } from '@material-ui/core/Hidden';
-import { CSSProperties, CreateCSSProperties } from '@material-ui/core/styles/withStyles';
+import { Theme, Breakpoint } from '@mui/material/styles';
+import { ResponsiveStyleValue, AllSystemCSSProperties, SxProps } from '@mui/system';
 
 const breakpoints: Breakpoint[] = ['xs', 'sm', 'md', 'lg', 'xl'];
 export type Viewport = 'xsDown' | 'xsUp' | 'smDown' | 'smUp' | 'mdDown' | 'mdUp' | 'lgDown' | 'lgUp' | 'xlDown' | 'xlUp';
@@ -57,11 +55,6 @@ function isViewport(viewport: string | Viewport): viewport is Viewport {
   );
 }
 
-function checkIsViewport(str: string): Viewport {
-  if (!isViewport(str)) throw new Error();
-  return str;
-}
-
 export function viewportsHelper(componentViewPorts: Partial<ComponentViewports>): Partial<ComponentViewports> {
   return componentViewPorts;
 }
@@ -83,17 +76,14 @@ export function mergeViewports(componentViewports: Partial<ComponentViewports> |
  *  {component}
  * </Hidden>
  */
-
-export function viewportsToHidden(viewports: Viewports): HiddenProps {
-  if (viewports === true || viewports === 'xsUp' || viewports === 'xlDown') return {};
-  if (viewports === false) return { xsUp: true };
+export function viewportsToSxDisplay(viewports: Viewports): ResponsiveStyleValue<AllSystemCSSProperties['display']> {
+  if (viewports === true || viewports === 'xsUp' || viewports === 'xlDown') return 'block';
+  if (viewports === false) return 'none';
   const breakpoint: Breakpoint = breakpointSlicer(viewports);
   const direction: ViewDirection = directionSlicer(viewports);
   const index = breakpoints.indexOf(breakpoint);
-  if (direction === 'Up') {
-    return { [checkIsViewport(`${breakpoints[index - 1]}Down`)]: true };
-  }
-  return { [checkIsViewport(`${breakpoints[index + 1]}Up`)]: true };
+  if (direction === 'Up') return { xs: 'none', [breakpoint]: 'block' };
+  return { xs: 'block', [breakpoints[index + 1]]: 'none' };
 }
 
 /**
@@ -103,11 +93,7 @@ export function viewportsToHidden(viewports: Viewports): HiddenProps {
  *
  */
 
-export function contentWidthStyles(
-  permanentDrawerViewports: Viewports,
-  theme: Theme,
-  drawerWidth: number
-): CSSProperties | CreateCSSProperties<StylesProps> {
+export function contentWidthStyles(permanentDrawerViewports: Viewports, drawerWidth: number): SxProps {
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -119,25 +105,14 @@ export function contentWidthStyles(
 
   const breakpoint: Breakpoint = breakpointSlicer(permanentDrawerViewports);
   const direction = directionSlicer(permanentDrawerViewports) === 'Up' ? 'up' : 'down';
-
+  const index = breakpoints.indexOf(breakpoint);
+  if (direction === 'down') return { width: { xs: `calc(100% - ${drawerWidth}px)`, [breakpoints[index + 1]]: '100%' } };
   return {
-    width: '100%',
-    [theme.breakpoints[direction](breakpoint)]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    width: { xs: '100%', [breakpoint]: `calc(100% - ${drawerWidth}px)` },
   };
 }
 
-interface StylesProps {
-  drawerWidth: number;
-  viewports: ComponentViewports;
-}
-
-export function permanentDrawerStyles(
-  permanentDrawerViewports: Viewports,
-  theme: Theme,
-  drawerWidth: number
-): CSSProperties | CreateCSSProperties<StylesProps> {
+export function permanentDrawerStyles(permanentDrawerViewports: Viewports, drawerWidth: number): SxProps {
   // ex. "mdUp"
   if (permanentDrawerViewports === true || permanentDrawerViewports === 'xlDown' || permanentDrawerViewports === 'xsUp')
     return {
@@ -150,46 +125,49 @@ export function permanentDrawerStyles(
 
   const breakpoint = breakpointSlicer(permanentDrawerViewports);
   const direction = directionSlicer(permanentDrawerViewports) === 'Up' ? 'up' : 'down';
-
+  const index = breakpoints.indexOf(breakpoint);
+  if (direction === 'down') return { width: { xs: drawerWidth, [breakpoints[index + 1]]: 0 } };
   return {
-    [theme.breakpoints[direction](breakpoint)]: {
-      width: drawerWidth,
-    },
+    width: { xs: 0, [breakpoint]: drawerWidth },
   };
 }
 
-export function mainStyles(bottomNavViewports: Viewports, theme: Theme): CSSProperties | CreateCSSProperties<StylesProps> {
+export function mainStyles(bottomNavViewports: Viewports): SxProps {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
-      paddingBottom: 56,
+      paddingBottom: '56px',
     };
   if (bottomNavViewports === false) return {};
 
   const breakpoint = breakpointSlicer(bottomNavViewports);
   const direction = directionSlicer(bottomNavViewports) === 'Up' ? 'up' : 'down';
+  const index = breakpoints.indexOf(breakpoint);
 
+  if (direction === 'down') return {
+    paddingBottom: { xs: '56px', [breakpoints[index + 1]]: 0 },
+  };
   return {
-    [theme.breakpoints[direction](breakpoint)]: {
-      paddingBottom: 56,
-    },
+    paddingBottom: { xs: 0, [breakpoint]: '56px' },
   };
 }
 
-export function fabStyles(bottomNavViewports: Viewports, theme: Theme): CSSProperties | CreateCSSProperties<StylesProps> {
+export function fabStyles(bottomNavViewports: Viewports, theme: Theme): SxProps {
   // ex. "xsDown"
   if (bottomNavViewports === true || bottomNavViewports === 'xlDown' || bottomNavViewports === 'xsUp')
     return {
-      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
+      paddingBottom: `calc(${theme.spacing(2)} + 56px)`,
     };
   if (bottomNavViewports === false) return {};
 
   const breakpoint = breakpointSlicer(bottomNavViewports);
   const direction = directionSlicer(bottomNavViewports) === 'Up' ? 'up' : 'down';
-
+  const index = breakpoints.indexOf(breakpoint);
+  
+  if (direction === 'down') return {
+    paddingBottom: { xs: `calc(${theme.spacing(2)} + 56px)`, [breakpoints[index + 1]]: 0 },
+  };
   return {
-    [theme.breakpoints[direction](breakpoint)]: {
-      paddingBottom: `calc(${theme.spacing(2)}px + 56px)`,
-    },
+    paddingBottom: { xs: 0, [breakpoint]: `calc(${theme.spacing(2)} + 56px)` },
   };
 }

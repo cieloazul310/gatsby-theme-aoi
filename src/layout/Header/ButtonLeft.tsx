@@ -1,9 +1,10 @@
 import * as React from 'react';
-import Hidden from '@material-ui/core/Hidden';
-import Tooltip from '@material-ui/core/Tooltip';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+
 import { ComponentViewports } from '../../utils/layoutViewports';
 
 interface Props {
@@ -19,14 +20,14 @@ function ButtonLeft({ toggleDrawer, componentViewports: { SwipeableDrawer, Perma
   };
   return (
     <>
-      <Hidden mdUp implementation="css">
+      <Box sx={{ display: { xs: 'block', md: 'none' } }}>
         <Tooltip title="Back">
           <IconButton color="inherit" onClick={onBackButtonClick} edge="start" aria-label="Get back to where you once belonged">
             <ArrowBackIosIcon />
           </IconButton>
         </Tooltip>
-      </Hidden>
-      <Hidden smDown implementation="css">
+      </Box>
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
         {showMenuButton ? (
           <Tooltip title="Menu">
             <IconButton color="inherit" onClick={toggleDrawer} edge="start" aria-label="Open Menu">
@@ -34,7 +35,7 @@ function ButtonLeft({ toggleDrawer, componentViewports: { SwipeableDrawer, Perma
             </IconButton>
           </Tooltip>
         ) : null}
-      </Hidden>
+      </Box>
     </>
   );
 }

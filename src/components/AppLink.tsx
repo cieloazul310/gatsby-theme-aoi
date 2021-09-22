@@ -1,8 +1,8 @@
 /* eslint @typescript-eslint/no-explicit-any: "off" */
 import * as React from 'react';
 import { Link as GatsbyLink, GatsbyLinkProps, withPrefix } from 'gatsby';
-import MuiLink, { LinkProps as MuiLinkProps } from '@material-ui/core/Link';
-import Button, { ButtonProps } from '@material-ui/core/Button';
+import MuiLink, { LinkProps as MuiLinkProps } from '@mui/material/Link';
+import Button, { ButtonProps } from '@mui/material/Button';
 import { useLocation } from '@reach/router';
 import clsx from 'clsx';
 

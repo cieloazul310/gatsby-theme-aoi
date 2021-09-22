@@ -1,19 +1,15 @@
 import * as React from 'react';
-import Container from '@material-ui/core/Container';
-import Box from '@material-ui/core/Box';
 import Layout, { LayoutProps } from '../../layout';
 
 type Props = {
-  jumbotron: JSX.Element | JSX.Element[];
+  jumbotron: React.ReactNode;
 } & LayoutProps;
 
-export default function JumbotronLayout({ jumbotron, disableGutters, children, maxWidth = false, ...props }: Props): JSX.Element {
+export default function JumbotronLayout({ jumbotron, children, ...props }: Props): JSX.Element {
   return (
-    <Layout maxWidth={false} disableGutters {...props}>
-      {jumbotron}
-      <Container maxWidth={maxWidth} disableGutters={disableGutters}>
-        <Box py={4}>{children}</Box>
-      </Container>
+    <Layout {...props}>
+      <div>{jumbotron}</div>
+      <div>{children}</div>
     </Layout>
   );
 }

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Icon, { IconProps } from '@material-ui/core/Icon';
+import Icon, { IconProps } from '@mui/material/Icon';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -9,7 +9,7 @@ interface Props extends IconProps {
 }
 
 // helpers
-function sizeToFontSize(fontSize: 'inherit' | 'default' | 'small' | 'large' | undefined): number {
+function sizeToFontSize(fontSize: IconProps['fontSize']): number {
   if (fontSize === 'small') return 20;
   if (fontSize === 'large') return 36;
   return 24;

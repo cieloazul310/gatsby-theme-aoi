@@ -1,29 +1,15 @@
 import * as React from 'react';
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
-import Tooltip from '@material-ui/core/Tooltip';
+import Toolbar from '@mui/material/Toolbar';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 // icons
-import CloseIcon from '@material-ui/icons/Close';
+import CloseIcon from '@mui/icons-material/Close';
 // Drawer Contents
 import Contents from './Contents';
 import DrawerSharer from './DrawerSharer';
 import StateHandler from './StateHandler';
 import DrawerFooter from './DrawerFooter';
-
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    toolbar: {
-      ...theme.mixins.toolbar,
-      display: 'flex',
-      alignItems: 'center',
-      paddingLeft: theme.spacing(3),
-      [theme.breakpoints.down('xs')]: {
-        paddingLeft: theme.spacing(2),
-      },
-    },
-  })
-);
 
 interface Props {
   handleDrawer: () => void;
@@ -32,16 +18,22 @@ interface Props {
 }
 
 function DrawerInner({ handleDrawer, contents, title }: Props): JSX.Element {
-  const classes = useStyles();
   return (
     <div>
-      <div className={classes.toolbar}>
+      <Toolbar sx={{
+        display: 'flex',
+        alignItems: 'center',
+        paddingLeft: {
+          xs: 2,
+          sm: 3,
+        },
+      }}>
         <Tooltip title="Close">
           <IconButton onClick={handleDrawer} edge="start">
             <CloseIcon />
           </IconButton>
         </Tooltip>
-      </div>
+      </Toolbar>
       <Divider />
       {contents}
       <Divider />

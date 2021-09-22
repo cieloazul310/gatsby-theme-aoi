@@ -30,7 +30,6 @@ module.exports = (options) => {
           siteId: options.siteId,
         },
       },
-      `gatsby-plugin-material-ui`,
       `gatsby-plugin-react-helmet`,
     ],
   };

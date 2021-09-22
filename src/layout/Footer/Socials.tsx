@@ -1,34 +1,17 @@
 import * as React from 'react';
-import MuiLink from '@material-ui/core/Link';
-import EmailIcon from '@material-ui/icons/Email';
-import TwitterIcon from '@material-ui/icons/Twitter';
-import FacebookIcon from '@material-ui/icons/Facebook';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import InstagramIcon from '@material-ui/icons/Instagram';
-import YouTubeIcon from '@material-ui/icons/YouTube';
-import LinkedInIcon from '@material-ui/icons/LinkedIn';
-import { makeStyles, createStyles } from '@material-ui/core/styles';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import MuiLink from '@mui/material/Link';
+import EmailIcon from '@mui/icons-material/Email';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import GitHubIcon from '@mui/icons-material/GitHub';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import YouTubeIcon from '@mui/icons-material/YouTube';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { faGitlab, faMedium, faTumblr, faGetPocket, faVimeo } from '@fortawesome/free-brands-svg-icons';
 import FabIcon from '../../components/FabIcon';
 import { useSiteMetadata } from '../../graphql-hooks';
-
-const useStyles = makeStyles(() =>
-  createStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    box: {
-      display: 'flex',
-      width: 36,
-      height: 36,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  })
-);
 
 interface IconBoxProps {
   children: React.ReactNode;
@@ -37,10 +20,18 @@ interface IconBoxProps {
 }
 
 function IconBox({ children, href, title }: IconBoxProps) {
-  const classes = useStyles();
   return (
     <MuiLink color="textSecondary" href={href} target="_blank" rel="noopener noreferrer" title={title || undefined}>
-      <div className={classes.box}>{children}</div>
+      <Box
+        sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        {children}
+      </Box>
     </MuiLink>
   );
 }
@@ -50,13 +41,12 @@ IconBox.defaultProps = {
 };
 
 function Socials(): JSX.Element {
-  const classes = useStyles();
   const { mail, github, twitter, facebook, gitlab, medium, linkedin, pocket, tumblr, instagram, youtube, vimeo } = useSiteMetadata().social;
-  const fontSize = 'default';
+  const fontSize = 'medium';
 
   return (
     <address>
-      <div className={classes.root}>
+      <Stack direction="row" spacing={1} justifyContent="center">
         {mail !== '' ? (
           <IconBox href={`mailto:${mail}`} title="E-Mail">
             <EmailIcon fontSize={fontSize} />
@@ -117,7 +107,7 @@ function Socials(): JSX.Element {
             <FabIcon icon={faVimeo} fontSize={fontSize} />
           </IconBox>
         ) : null}
-      </div>
+      </Stack>
     </address>
   );
 }
