@@ -3,7 +3,7 @@
 exports[`FabIcon Large Icon 1`] = `
 <span
   aria-hidden={true}
-  className="material-icons MuiIcon-root MuiIcon-fontSizeLarge"
+  className="material-icons notranslate MuiIcon-root MuiIcon-fontSizeLarge css-1gb9piy-MuiIcon-root"
 >
   <svg
     aria-hidden="true"
@@ -33,7 +33,7 @@ exports[`FabIcon Large Icon 1`] = `
 exports[`FabIcon TwitterIcon 1`] = `
 <span
   aria-hidden={true}
-  className="material-icons MuiIcon-root"
+  className="material-icons notranslate MuiIcon-root MuiIcon-fontSizeMedium css-kp9ftd-MuiIcon-root"
 >
   <svg
     aria-hidden="true"
@@ -63,7 +63,7 @@ exports[`FabIcon TwitterIcon 1`] = `
 exports[`FabIcon Wide Icon 1`] = `
 <span
   aria-hidden={true}
-  className="material-icons MuiIcon-root"
+  className="material-icons notranslate MuiIcon-root MuiIcon-fontSizeMedium css-kp9ftd-MuiIcon-root"
 >
   <svg
     aria-hidden="true"
@@ -93,7 +93,7 @@ exports[`FabIcon Wide Icon 1`] = `
 exports[`FabIcon default vertical 1`] = `
 <span
   aria-hidden={true}
-  className="material-icons MuiIcon-root"
+  className="material-icons notranslate MuiIcon-root MuiIcon-fontSizeMedium css-kp9ftd-MuiIcon-root"
 >
   <svg
     aria-hidden="true"
@@ -123,7 +123,7 @@ exports[`FabIcon default vertical 1`] = `
 exports[`FabIcon disable default vertical 1`] = `
 <span
   aria-hidden={true}
-  className="material-icons MuiIcon-root"
+  className="material-icons notranslate MuiIcon-root MuiIcon-fontSizeMedium css-kp9ftd-MuiIcon-root"
 >
   <svg
     aria-hidden="true"
