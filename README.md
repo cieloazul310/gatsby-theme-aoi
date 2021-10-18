@@ -1,3 +1,5 @@
+Moved to [gatsby-aoi] Monorepo.
+
 # Gatsby Theme Aoi
 
 [![npm version](https://badge.fury.io/js/gatsby-theme-aoi.svg)](https://badge.fury.io/js/gatsby-theme-aoi)
@@ -350,6 +352,7 @@ export default function reducer(state: AppState, action: Action): AppState {
 - [gatsby-starter-aoi] A Gatsby starter kit (deprecated)
 
 [gatsby]: https://www.gatsbyjs.org/ 'Gatsby'
+[gatsby-aoi]: https://github.com/cieloazul310/gatsby-aoi/ 'Gatsby Aoi Monorepo'
 [gatsby-theme-aoi-top-layout]: https://github.com/cieloazul310/gatsby-theme-aoi-top-layout/ 'Gatsby Theme Aoi Top Layout'
 [gatsby-starter-aoi-theme]: https://github.com/cieloazul310/gatsby-starter-aoi-theme/ 'Gatsby Starter Aoi Theme'
 [gatsby-starter-aoi]: https://github.com/cieloazul310/gatsby-starter-aoi/ 'Gatsby Starter Aoi'
